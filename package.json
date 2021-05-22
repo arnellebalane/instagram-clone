@@ -13,5 +13,8 @@
   "bugs": {
     "url": "https://github.com/arnellebalane/instagram-clone/issues"
   },
-  "homepage": "https://github.com/arnellebalane/instagram-clone#readme"
+  "homepage": "https://github.com/arnellebalane/instagram-clone#readme",
+  "dependencies": {
+    "vue": "^3.0.11"
+  }
 }
