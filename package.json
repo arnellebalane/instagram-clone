@@ -23,5 +23,8 @@
   "devDependencies": {
     "@parcel/transformer-vue": "^2.0.0-beta.2",
     "parcel": "^2.0.0-beta.2"
+  },
+  "alias": {
+    "_components": "./src/components"
   }
 }
