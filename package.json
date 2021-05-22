@@ -25,6 +25,8 @@
     "parcel": "^2.0.0-beta.2"
   },
   "alias": {
-    "_components": "./src/components"
+    "_components": "./src/components",
+    "_styles": "./src/styles",
+    "_pages": "./src/pages"
   }
 }
