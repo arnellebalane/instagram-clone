@@ -1,0 +1,17 @@
+{
+  "name": "instagram-clone",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arnellebalane/instagram-clone.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/arnellebalane/instagram-clone/issues"
+  },
+  "homepage": "https://github.com/arnellebalane/instagram-clone#readme"
+}
