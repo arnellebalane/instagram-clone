@@ -1,7 +1,7 @@
 <template>
   <div class="UserMenu">
     <button :class="{ open: isOpen }" @click.stop="toggleDropdown">
-      <img src="@assets/images/default-photo.jpg" :alt="user.displayName" />
+      <img :src="userPhoto" :alt="user.displayName" />
     </button>
 
     <UserDropdown v-model="isOpen" :user="user" @logout="logout" />
@@ -11,6 +11,7 @@
 <script>
 import { auth } from '@lib/firebase';
 import UserDropdown from '@components/UserDropdown.vue';
+import defaultPhoto from '@assets/images/default-photo.jpg';
 
 export default {
   components: {
@@ -26,6 +27,10 @@ export default {
   computed: {
     user() {
       return this.$store.state.currentUser;
+    },
+
+    userPhoto() {
+      return this.user.photoURL || defaultPhoto;
     },
   },
 
