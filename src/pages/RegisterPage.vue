@@ -46,11 +46,8 @@ export default {
       this.isLoading = true;
       this.$store.commit('clearError');
       try {
-        await auth.createUserWithEmailAndPassword(data.email, data.password);
-        const unsubscribe = auth.onAuthStateChanged(async (user) => {
-          await user.updateProfile({ displayName: data.name });
-          unsubscribe();
-        });
+        const credential = await auth.createUserWithEmailAndPassword(data.email, data.password);
+        await credential.user.updateProfile({ displayName: data.name });
       } catch (error) {
         this.$store.commit('setError', error.message);
       }
