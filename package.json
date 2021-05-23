@@ -25,7 +25,9 @@
   },
   "devDependencies": {
     "@parcel/transformer-vue": "^2.0.0-beta.2",
-    "parcel": "^2.0.0-beta.2"
+    "@vitejs/plugin-vue": "^1.2.2",
+    "parcel": "^2.0.0-beta.2",
+    "vite": "^2.3.3"
   },
   "alias": {
     "_assets": "./src/assets",
