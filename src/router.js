@@ -64,4 +64,9 @@ const router = createRouter({
   routes,
 });
 
+router.beforeEach(() => {
+  store.commit('clearError');
+  return true;
+});
+
 export default router;
