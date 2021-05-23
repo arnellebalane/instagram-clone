@@ -1,7 +1,7 @@
 <template>
   <div class="AuthPage">
     <AuthCard>
-      <img src="~_assets/images/logo.png" alt="Instagram logo" />
+      <img src="~@assets/images/logo.png" alt="Instagram logo" />
 
       <LoginForm />
       <AuthSeparator />
@@ -18,11 +18,11 @@
 </template>
 
 <script>
-import LoginForm from '_components/LoginForm.vue';
-import AuthCard from '_components/AuthCard.vue';
-import AuthSeparator from '_components/AuthSeparator.vue';
-import AuthButton from '_components/AuthButton.vue';
-import AuthFooter from '_components/AuthFooter.vue';
+import LoginForm from '@components/LoginForm.vue';
+import AuthCard from '@components/AuthCard.vue';
+import AuthSeparator from '@components/AuthSeparator.vue';
+import AuthButton from '@components/AuthButton.vue';
+import AuthFooter from '@components/AuthFooter.vue';
 
 export default {
   components: {
@@ -36,7 +36,7 @@ export default {
 </script>
 
 <style scoped>
-@import '_styles/auth.css';
+@import '@styles/auth.css';
 
 img {
   margin-bottom: 1.6rem;

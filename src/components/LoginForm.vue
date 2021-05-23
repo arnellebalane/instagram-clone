@@ -34,5 +34,5 @@ export default {
 </script>
 
 <style scoped>
-@import '_styles/auth-form.css';
+@import '@styles/auth-form.css';
 </style>

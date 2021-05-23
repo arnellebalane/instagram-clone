@@ -1,7 +1,7 @@
 <template>
   <div class="AuthPage">
     <AuthCard>
-      <img src="~_assets/images/logo.png" alt="Instagram logo" />
+      <img src="~@assets/images/logo.png" alt="Instagram logo" />
       <p>Register to see photos and videos from your friends</p>
 
       <AuthButton filled />
@@ -19,11 +19,11 @@
 </template>
 
 <script>
-import AuthCard from '_components/AuthCard.vue';
-import AuthButton from '_components/AuthButton.vue';
-import AuthSeparator from '_components/AuthSeparator.vue';
-import AuthFooter from '_components/AuthFooter.vue';
-import RegisterForm from '_components/RegisterForm.vue';
+import AuthCard from '@components/AuthCard.vue';
+import AuthButton from '@components/AuthButton.vue';
+import AuthSeparator from '@components/AuthSeparator.vue';
+import AuthFooter from '@components/AuthFooter.vue';
+import RegisterForm from '@components/RegisterForm.vue';
 
 export default {
   components: {
@@ -37,7 +37,7 @@ export default {
 </script>
 
 <style scoped>
-@import '_styles/auth.css';
+@import '@styles/auth.css';
 
 .AuthCard p {
   font-weight: 700;

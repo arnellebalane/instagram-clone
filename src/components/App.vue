@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import AppHeader from '_components/AppHeader.vue';
-import LoginPage from '_pages/LoginPage.vue';
+import AppHeader from '@components/AppHeader.vue';
+import LoginPage from '@pages/LoginPage.vue';
 
 export default {
   components: {
