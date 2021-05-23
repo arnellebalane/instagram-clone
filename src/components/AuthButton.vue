@@ -1,5 +1,5 @@
 <template>
-  <button :class="{ filled }">
+  <button :class="{ filled }" v-bind="$attrs">
     <svg viewBox="0 0 24 24">
       <path
         fill="currentColor"
@@ -36,6 +36,11 @@ button {
   color: var(--gray-700);
   background: none;
   cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 button.filled {

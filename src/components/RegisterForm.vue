@@ -1,15 +1,19 @@
 <template>
   <form @submit.prevent="handleSubmit">
-    <input type="name" name="name" placeholder="Full name" v-model="name" required />
-    <input type="email" name="email" placeholder="Email" v-model="email" required />
-    <input type="password" name="password" placeholder="Password" v-model="password" required />
+    <input type="name" name="name" placeholder="Full name" v-model="name" :disabled="loading" required />
+    <input type="email" name="email" placeholder="Email" v-model="email" :disabled="loading" required />
+    <input type="password" name="password" placeholder="Password" v-model="password" :disabled="loading" required />
 
-    <button :disabled="!isFormValid">Register</button>
+    <button :disabled="loading || !isFormValid">Register</button>
   </form>
 </template>
 
 <script>
 export default {
+  props: {
+    loading: Boolean,
+  },
+
   emits: ['submit'],
 
   data() {
