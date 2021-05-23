@@ -30,7 +30,8 @@
   "alias": {
     "_assets": "./src/assets",
     "_components": "./src/components",
-    "_styles": "./src/styles",
-    "_pages": "./src/pages"
+    "_lib": "./src/lib",
+    "_pages": "./src/pages",
+    "_styles": "./src/styles"
   }
 }
