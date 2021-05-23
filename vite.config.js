@@ -2,8 +2,6 @@ const path = require('path');
 const VuePlugin = require('@vitejs/plugin-vue');
 
 module.exports = {
-  root: './src',
-
   plugins: [VuePlugin()],
 
   resolve: {
