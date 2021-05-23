@@ -1,0 +1,42 @@
+<template>
+  <form>
+    <input type="name" name="name" placeholder="Full name" required />
+    <input type="email" name="email" placeholder="Email" required />
+    <input type="password" name="password" placeholder="Password" required />
+
+    <button>Register</button>
+  </form>
+</template>
+
+<style scoped>
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+input {
+  padding: 1rem;
+  border: 1px solid var(--gray-200);
+  border-radius: 4px;
+  font-size: 1.2rem;
+  background-color: var(--gray-50);
+}
+
+button {
+  padding: 8px 1.6rem;
+  border: none;
+  border-radius: 4px;
+  margin-top: 8px;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--white);
+  background-color: var(--primary);
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+</style>
