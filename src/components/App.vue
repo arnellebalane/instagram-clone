@@ -1,7 +1,7 @@
 <template>
   <div class="Wrapper">
     <AppHeader v-if="currentUser" />
-    <LoginPage class="Page" />
+    <RouterView class="Page" />
   </div>
 </template>
 
