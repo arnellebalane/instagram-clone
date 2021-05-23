@@ -1,8 +1,25 @@
 <template>
   <article>
-    <h1>Post</h1>
+    <PostHeader :author="post.author" />
   </article>
 </template>
+
+<script>
+import PostHeader from '@components/PostHeader.vue';
+
+export default {
+  components: {
+    PostHeader,
+  },
+
+  props: {
+    post: {
+      type: Object,
+      required: true,
+    },
+  },
+};
+</script>
 
 <style scoped>
 article {
