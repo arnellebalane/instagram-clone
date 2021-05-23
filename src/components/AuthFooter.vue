@@ -1,6 +1,6 @@
 <template>
-  <footer class="LoginFooter">
-    <p>Don't have an account? <RouterLink to="/register">Register</RouterLink></p>
+  <footer class="AuthFooter">
+    <slot></slot>
   </footer>
 </template>
 
@@ -13,11 +13,5 @@ footer {
   font-size: 1.4rem;
   text-align: center;
   background-color: var(--white);
-}
-
-a {
-  font-weight: 700;
-  text-decoration: none;
-  color: var(--primary);
 }
 </style>
