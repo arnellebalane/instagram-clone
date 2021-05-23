@@ -11,15 +11,19 @@
         Login with Google
       </button>
     </div>
+
+    <LoginFooter />
   </div>
 </template>
 
 <script>
 import LoginForm from '_components/LoginForm.vue';
+import LoginFooter from '_components/LoginFooter.vue';
 
 export default {
   components: {
     LoginForm,
+    LoginFooter,
   },
 };
 </script>
@@ -27,8 +31,10 @@ export default {
 <style scoped>
 .LoginPage {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding-bottom: 20rem;
 }
 
 .LoginCard {
@@ -36,10 +42,10 @@ export default {
   flex-direction: column;
   gap: 2rem;
 
+  width: 100%;
   max-width: 36rem;
   padding: 3.6rem;
   border: 1px solid var(--gray-200);
-  margin-bottom: 20rem;
   background-color: var(--white);
 }
 
@@ -92,5 +98,9 @@ export default {
 
 .LoginButton img {
   width: 1.4rem;
+}
+
+.LoginFooter {
+  margin-top: 1rem;
 }
 </style>
