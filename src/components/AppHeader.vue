@@ -2,10 +2,22 @@
   <header class="AppHeader">
     <div class="Wrapper">
       <img class="Logo" src="@assets/images/logo.png" alt="Instagram logo" />
-      <img class="ProfilePhoto" src="@assets/images/default-photo.jpg" alt="Arnelle Balane" />
+      <img class="ProfilePhoto" src="@assets/images/default-photo.jpg" alt="Arnelle Balane" @click="logout" />
     </div>
   </header>
 </template>
+
+<script>
+import { auth } from '@lib/firebase';
+
+export default {
+  methods: {
+    logout() {
+      auth.signOut();
+    },
+  },
+};
+</script>
 
 <style scoped>
 header {
