@@ -1,15 +1,24 @@
 <template>
   <div class="Wrapper">
+    <AppHeader v-if="currentUser" />
     <LoginPage class="Page" />
   </div>
 </template>
 
 <script>
+import AppHeader from '_components/AppHeader.vue';
 import LoginPage from '_pages/LoginPage.vue';
 
 export default {
   components: {
+    AppHeader,
     LoginPage,
+  },
+
+  data() {
+    return {
+      currentUser: null,
+    };
   },
 };
 </script>
