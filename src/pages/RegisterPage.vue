@@ -44,15 +44,25 @@ export default {
   methods: {
     async registerWithEmail(data) {
       this.isLoading = true;
-      const credential = await firebase.auth().createUserWithEmailAndPassword(data.email, data.password);
-      await credential.user.updateProfile({ displayName: data.name });
+      this.$store.commit('clearError');
+      try {
+        const credential = await firebase.auth().createUserWithEmailAndPassword(data.email, data.password);
+        await credential.user.updateProfile({ displayName: data.name });
+      } catch (error) {
+        this.$store.commit('setError', error.message);
+      }
       this.isLoading = false;
     },
 
     async registerWithGoogle() {
       this.isLoading = true;
-      const provider = new firebase.auth.GoogleAuthProvider();
-      await firebase.auth().signInWithPopup(provider);
+      this.$store.commit('clearError');
+      try {
+        const provider = new firebase.auth.GoogleAuthProvider();
+        await firebase.auth().signInWithPopup(provider);
+      } catch (error) {
+        this.$store.commit('setError', error.message);
+      }
       this.isLoading = false;
     },
   },
