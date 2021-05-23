@@ -36,28 +36,9 @@ export default {
 </script>
 
 <style scoped>
-.AuthPage {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding-bottom: 20rem;
-}
+@import '_styles/auth.css';
 
 img {
-  display: block;
-  width: 65%;
-  margin: 0 auto;
   margin-bottom: 1.6rem;
-}
-
-.AuthFooter {
-  margin-top: 1rem;
-}
-
-.AuthFooter a {
-  font-weight: 700;
-  text-decoration: none;
-  color: var(--primary);
 }
 </style>
