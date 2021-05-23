@@ -10,6 +10,8 @@
 
 <script>
 export default {
+  emits: ['submit'],
+
   data() {
     return {
       name: '',

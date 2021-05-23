@@ -9,6 +9,8 @@
 
 <script>
 export default {
+  emits: ['submit'],
+
   data() {
     return {
       email: '',

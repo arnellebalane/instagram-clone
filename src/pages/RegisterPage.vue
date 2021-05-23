@@ -4,9 +4,9 @@
       <img src="~@assets/images/logo.png" alt="Instagram logo" />
       <p>Register to see photos and videos from your friends</p>
 
-      <AuthButton filled />
+      <AuthButton filled @click="registerWithGoogle" />
       <AuthSeparator />
-      <RegisterForm />
+      <RegisterForm @submit="registerWithEmail" />
     </AuthCard>
 
     <AuthFooter>
@@ -19,6 +19,7 @@
 </template>
 
 <script>
+import firebase from '@lib/firebase';
 import AuthCard from '@components/AuthCard.vue';
 import AuthButton from '@components/AuthButton.vue';
 import AuthSeparator from '@components/AuthSeparator.vue';
@@ -32,6 +33,18 @@ export default {
     AuthSeparator,
     AuthFooter,
     RegisterForm,
+  },
+
+  methods: {
+    async registerWithEmail(data) {
+      const credential = await firebase.auth().createUserWithEmailAndPassword(data.email, data.password);
+      await credential.user.updateProfile({ displayName: data.name });
+    },
+
+    async registerWithGoogle() {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      await firebase.auth().signInWithPopup(provider);
+    },
   },
 };
 </script>
