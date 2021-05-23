@@ -1,6 +1,6 @@
 <template>
   <div class="Wrapper">
-    <AppHeader v-if="currentUser" />
+    <AppHeader v-if="$store.getters.isLoggedIn" />
     <RouterView class="Page" />
   </div>
 </template>
@@ -13,12 +13,6 @@ export default {
   components: {
     AppHeader,
     LoginPage,
-  },
-
-  data() {
-    return {
-      currentUser: null,
-    };
   },
 };
 </script>

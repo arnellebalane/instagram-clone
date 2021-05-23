@@ -4,7 +4,11 @@ const state = {
   currentUser: null,
 };
 
-const getters = {};
+const getters = {
+  isLoggedIn(state) {
+    return state.currentUser !== null;
+  },
+};
 
 const mutations = {
   setCurrentUser(state, user) {
