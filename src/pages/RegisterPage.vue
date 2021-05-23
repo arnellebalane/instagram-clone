@@ -1,7 +1,7 @@
 <template>
   <div class="AuthPage">
     <AuthCard>
-      <img src="~@assets/images/logo.png" alt="Instagram logo" />
+      <img src="@assets/images/logo.png" alt="Instagram logo" />
       <p>Register to see photos and videos from your friends</p>
 
       <AuthButton filled :disabled="isLoading" @click="registerWithGoogle" />

@@ -1,7 +1,7 @@
 <template>
   <div class="AuthPage">
     <AuthCard>
-      <img src="~@assets/images/logo.png" alt="Instagram logo" />
+      <img src="@assets/images/logo.png" alt="Instagram logo" />
 
       <LoginForm />
       <AuthSeparator />
