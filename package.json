@@ -18,7 +18,8 @@
   },
   "homepage": "https://github.com/arnellebalane/instagram-clone#readme",
   "dependencies": {
-    "vue": "^3.0.11"
+    "vue": "^3.0.11",
+    "vue-router": "^4.0.8"
   },
   "devDependencies": {
     "@parcel/transformer-vue": "^2.0.0-beta.2",
