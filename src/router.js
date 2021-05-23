@@ -10,11 +10,17 @@ const routes = [
     path: '/',
     name: 'login',
     component: LoginPage,
+    meta: {
+      isPublicPage: true,
+    },
   },
   {
     path: '/register',
     name: 'register',
     component: RegisterPage,
+    meta: {
+      isPublicPage: true,
+    },
   },
   {
     path: '/feed',
