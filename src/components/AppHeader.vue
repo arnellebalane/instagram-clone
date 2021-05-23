@@ -1,20 +1,18 @@
 <template>
   <header class="AppHeader">
     <div class="Wrapper">
-      <img class="Logo" src="@assets/images/logo.png" alt="Instagram logo" />
-      <img class="ProfilePhoto" src="@assets/images/default-photo.jpg" alt="Arnelle Balane" @click="logout" />
+      <img src="@assets/images/logo.png" alt="Instagram logo" />
+      <UserMenu />
     </div>
   </header>
 </template>
 
 <script>
-import { auth } from '@lib/firebase';
+import UserMenu from '@components/UserMenu.vue';
 
 export default {
-  methods: {
-    logout() {
-      auth.signOut();
-    },
+  components: {
+    UserMenu,
   },
 };
 </script>
@@ -34,17 +32,8 @@ header {
   margin: 0 auto;
 }
 
-.Logo {
+img {
   height: 2.8rem;
   margin-top: 8px;
-}
-
-.ProfilePhoto {
-  width: 2.4rem;
-  height: 2.4rem;
-  object-fit: cover;
-  object-position: center center;
-  border: 1px solid var(--gray-300);
-  border-radius: 50%;
 }
 </style>

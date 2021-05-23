@@ -52,7 +52,7 @@ const routes = [
     beforeEnter: [ensureLoggedIn],
   },
   {
-    path: '/:username',
+    path: '/:id',
     name: 'profile',
     component: ProfilePage,
     beforeEnter: [ensureLoggedIn],
