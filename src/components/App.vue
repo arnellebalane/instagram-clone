@@ -1,7 +1,8 @@
 <template>
+  <AppHeader v-if="$store.getters.isLoggedIn" />
+  <AppError v-if="$store.getters.hasError">{{ $store.state.error }}</AppError>
+
   <div class="Wrapper">
-    <AppHeader v-if="$store.getters.isLoggedIn" />
-    <AppError v-if="$store.getters.hasError">{{ $store.state.error }}</AppError>
     <RouterView class="Page" />
   </div>
 </template>
@@ -39,7 +40,15 @@ export default {
 
   max-width: 50rem;
   min-height: 100vh;
+  padding-top: 7.4rem;
   margin: 0 auto;
+}
+
+.AppHeader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
 }
 
 .AppError {
