@@ -35,8 +35,13 @@ export default {
   },
 
   methods: {
-    handleClick() {
-      this.$emit('update:modelValue', false);
+    handleClick(event) {
+      const isOutsideDropdown = !event.target.closest('.UserDropdown');
+      const isLinkInsideDropdown = event.target.closest('.UserDropdown a');
+
+      if (isOutsideDropdown || isLinkInsideDropdown) {
+        this.$emit('update:modelValue', false);
+      }
     },
 
     logout() {
