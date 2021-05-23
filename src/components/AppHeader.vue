@@ -1,7 +1,9 @@
 <template>
   <header class="AppHeader">
     <div class="Wrapper">
-      <img src="@assets/images/logo.png" alt="Instagram logo" />
+      <RouterLink to="/feed">
+        <img src="@assets/images/logo.png" alt="Instagram logo" />
+      </RouterLink>
       <UserMenu />
     </div>
   </header>
@@ -33,6 +35,7 @@ header {
 }
 
 img {
+  display: block;
   height: 2.8rem;
   margin-top: 8px;
 }
