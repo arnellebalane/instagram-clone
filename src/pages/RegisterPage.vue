@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import firebase from '@lib/firebase';
+import firebase, { auth } from '@lib/firebase';
 import AuthCard from '@components/AuthCard.vue';
 import AuthButton from '@components/AuthButton.vue';
 import AuthSeparator from '@components/AuthSeparator.vue';
@@ -46,8 +46,11 @@ export default {
       this.isLoading = true;
       this.$store.commit('clearError');
       try {
-        const credential = await firebase.auth().createUserWithEmailAndPassword(data.email, data.password);
-        await credential.user.updateProfile({ displayName: data.name });
+        await auth.createUserWithEmailAndPassword(data.email, data.password);
+        const unsubscribe = auth.onAuthStateChanged(async (user) => {
+          await user.updateProfile({ displayName: data.name });
+          unsubscribe();
+        });
       } catch (error) {
         this.$store.commit('setError', error.message);
       }
@@ -59,7 +62,7 @@ export default {
       this.$store.commit('clearError');
       try {
         const provider = new firebase.auth.GoogleAuthProvider();
-        await firebase.auth().signInWithPopup(provider);
+        await auth.signInWithPopup(provider);
       } catch (error) {
         this.$store.commit('setError', error.message);
       }
