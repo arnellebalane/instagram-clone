@@ -1,5 +1,5 @@
 <template>
-  <ul class="ProfileStats">
+  <ul>
     <li>
       <strong>{{ user.postsCount }}</strong> posts
     </li>

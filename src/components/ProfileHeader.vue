@@ -1,10 +1,10 @@
 <template>
-  <header class="ProfileHeader">
+  <header>
     <img :src="user.photoURL" :alt="user.name" />
 
     <div>
       <h1>{{ user.name }}</h1>
-      <p>{{ user.description }} lorem</p>
+      <p>{{ user.description }}</p>
     </div>
   </header>
 </template>

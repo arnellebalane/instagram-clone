@@ -19,6 +19,7 @@ html {
   --gray-700: #374151;
   --gray-800: #1f2937;
   --gray-900: #111827;
+  --gray-transparent: rgba(17, 24, 39, 0.5);
 
   font-size: 62.5%;
 }
