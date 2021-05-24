@@ -5,6 +5,7 @@
     <PostActions :post="post" />
     <PostStats :post="post" />
     <PostComments :post="post" />
+    <PostDate :post="post" />
   </article>
 </template>
 
@@ -14,6 +15,7 @@ import PostImage from '@components/PostImage.vue';
 import PostActions from '@components/PostActions.vue';
 import PostStats from '@components/PostStats.vue';
 import PostComments from '@components/PostComments.vue';
+import PostDate from '@components/PostDate.vue';
 
 export default {
   components: {
@@ -22,6 +24,7 @@ export default {
     PostActions,
     PostStats,
     PostComments,
+    PostDate,
   },
 
   props: {
