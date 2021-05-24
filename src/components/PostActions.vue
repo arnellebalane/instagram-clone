@@ -15,14 +15,13 @@
 <style scoped>
 .PostActions {
   display: flex;
-  gap: 4px;
-  padding: 1.2rem;
+  padding: 8px;
 }
 
 button {
-  width: 3.2rem;
-  height: 3.2rem;
-  padding: 4px;
+  width: 4rem;
+  height: 4rem;
+  padding: 8px;
   border: none;
   background: none;
   cursor: pointer;
