@@ -16,7 +16,7 @@
 .PostActions {
   display: flex;
   gap: 4px;
-  padding: 1.2rem 1.6rem;
+  padding: 1.2rem;
 }
 
 button {
