@@ -93,10 +93,6 @@ li span {
   font-weight: 700;
 }
 
-li a {
-  text-decoration: none;
-}
-
 li button {
   border: none;
   background: none;

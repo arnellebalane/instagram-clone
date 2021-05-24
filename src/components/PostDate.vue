@@ -33,10 +33,6 @@ div {
   padding: 0 1.6rem;
 }
 
-a {
-  text-decoration: none;
-}
-
 time {
   font-size: 1rem;
   text-transform: uppercase;

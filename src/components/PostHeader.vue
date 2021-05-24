@@ -39,6 +39,5 @@ img {
 
 a {
   font-weight: 700;
-  text-decoration: none;
 }
 </style>

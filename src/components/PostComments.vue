@@ -28,12 +28,10 @@ div {
   display: flex;
   flex-direction: column;
   gap: 4px;
-
   padding: 0 1.6rem;
 }
 
 a {
   font-weight: 700;
-  text-decoration: none;
 }
 </style>

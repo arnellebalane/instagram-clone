@@ -18,6 +18,5 @@ img {
 
 .AuthFooter a {
   font-weight: 700;
-  text-decoration: none;
   color: var(--primary);
 }
