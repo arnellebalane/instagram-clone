@@ -1,15 +1,18 @@
 <template>
   <article>
     <PostHeader :author="post.author" />
+    <PostImage :src="post.photoURL" :alt="`Photo by ${post.author.name}`" />
   </article>
 </template>
 
 <script>
 import PostHeader from '@components/PostHeader.vue';
+import PostImage from '@components/PostImage.vue';
 
 export default {
   components: {
     PostHeader,
+    PostImage,
   },
 
   props: {

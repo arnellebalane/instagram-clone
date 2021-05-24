@@ -25,6 +25,7 @@ header {
   gap: 1.6rem;
 
   padding: 1.6rem;
+  border-bottom: 1px solid var(--gray-100);
 }
 
 img {

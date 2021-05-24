@@ -26,5 +26,7 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 6.4rem;
+
+  padding-bottom: 10rem;
 }
 </style>
