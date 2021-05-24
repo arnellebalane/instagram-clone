@@ -1,6 +1,6 @@
 <template>
   <div class="PostStats">
-    <p>{{ post.likes }} likes</p>
+    <p>{{ post.likesCount }} likes</p>
   </div>
 </template>
 

@@ -4,7 +4,7 @@
 
     <div class="Stats">
       <img src="@assets/icons/heart-filled.svg" alt="" />
-      <p>{{ post.likes }}</p>
+      <p>{{ post.likesCount }}</p>
     </div>
   </div>
 </template>

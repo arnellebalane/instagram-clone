@@ -18,7 +18,7 @@ export default {
           photoURL:
             'https://images.unsplash.com/photo-1621716362967-fd1c5281eef9?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500',
           caption: 'This is a cool photo',
-          likes: 10,
+          likesCount: 10,
           datePosted: new Date('2021-05-01 03:14:00'),
           comments: [
             {
@@ -42,7 +42,7 @@ export default {
           photoURL:
             'https://images.unsplash.com/photo-1621716362967-fd1c5281eef9?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500',
           caption: 'This is a cool photo',
-          likes: 10,
+          likesCount: 10,
           datePosted: new Date('2021-05-01 03:14:00'),
           comments: [
             {
