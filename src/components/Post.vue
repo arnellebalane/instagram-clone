@@ -1,7 +1,7 @@
 <template>
   <article>
-    <PostHeader :author="post.author" />
-    <PostImage :src="post.photoURL" :alt="`Photo by ${post.author.name}`" />
+    <PostHeader :post="post" />
+    <PostImage :post="post" />
   </article>
 </template>
 

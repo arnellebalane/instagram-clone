@@ -1,8 +1,8 @@
 <template>
   <header>
-    <img :src="author.photoURL" :alt="author.name" />
-    <RouterLink :to="{ name: 'profile', params: { id: author.id } }">
-      {{ author.name }}
+    <img :src="post.author.photoURL" :alt="post.author.name" />
+    <RouterLink :to="{ name: 'profile', params: { id: post.author.id } }">
+      {{ post.author.name }}
     </RouterLink>
   </header>
 </template>
@@ -10,7 +10,7 @@
 <script>
 export default {
   props: {
-    author: {
+    post: {
       type: Object,
       required: true,
     },
