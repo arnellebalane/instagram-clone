@@ -4,6 +4,7 @@
     <PostImage :post="post" />
     <PostActions :post="post" />
     <PostStats :post="post" />
+    <PostComments :post="post" />
   </article>
 </template>
 
@@ -12,6 +13,7 @@ import PostHeader from '@components/PostHeader.vue';
 import PostImage from '@components/PostImage.vue';
 import PostActions from '@components/PostActions.vue';
 import PostStats from '@components/PostStats.vue';
+import PostComments from '@components/PostComments.vue';
 
 export default {
   components: {
@@ -19,6 +21,7 @@ export default {
     PostImage,
     PostActions,
     PostStats,
+    PostComments,
   },
 
   props: {
