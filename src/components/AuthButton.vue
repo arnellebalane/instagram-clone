@@ -31,7 +31,6 @@ button {
   padding: 8px 1.6rem;
   border: none;
   border-radius: 4px;
-  font-size: 1.4rem;
   font-weight: 700;
   color: var(--gray-700);
   background: none;

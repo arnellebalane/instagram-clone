@@ -5,7 +5,6 @@
 <style scoped>
 p {
   position: relative;
-  font-size: 1.4rem;
   font-weight: 700;
   text-align: center;
   text-transform: uppercase;

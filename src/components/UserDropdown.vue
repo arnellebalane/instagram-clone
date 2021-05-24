@@ -79,10 +79,6 @@ ul::before {
   transform-origin: center center;
 }
 
-li {
-  font-size: 1.4rem;
-}
-
 li span,
 li a,
 li button {

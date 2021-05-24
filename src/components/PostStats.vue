@@ -18,7 +18,6 @@ export default {
 <style scoped>
 div {
   padding: 0 1.6rem;
-  font-size: 1.4rem;
   font-weight: 700;
 }
 </style>

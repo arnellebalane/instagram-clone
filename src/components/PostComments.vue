@@ -32,10 +32,6 @@ div {
   padding: 0 1.6rem;
 }
 
-p {
-  font-size: 1.4rem;
-}
-
 a {
   font-weight: 700;
   text-decoration: none;

@@ -73,6 +73,7 @@ export default {
 @import '@styles/auth.css';
 
 .AuthCard p {
+  font-size: 1.6rem;
   font-weight: 700;
   text-align: center;
   color: var(--gray-500);

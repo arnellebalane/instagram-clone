@@ -54,14 +54,12 @@ input {
   flex-grow: 1;
   padding: 8px 0;
   border: none;
-  font-size: 1.4rem;
   outline: none;
 }
 
 button {
   padding: 8px 0;
   border: none;
-  font-size: 1.4rem;
   font-weight: 700;
   color: var(--primary);
   background: none;
