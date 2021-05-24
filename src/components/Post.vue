@@ -2,17 +2,20 @@
   <article>
     <PostHeader :post="post" />
     <PostImage :post="post" />
+    <PostActions :post="post" />
   </article>
 </template>
 
 <script>
 import PostHeader from '@components/PostHeader.vue';
 import PostImage from '@components/PostImage.vue';
+import PostActions from '@components/PostActions.vue';
 
 export default {
   components: {
     PostHeader,
     PostImage,
+    PostActions,
   },
 
   props: {
