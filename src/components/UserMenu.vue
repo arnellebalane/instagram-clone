@@ -47,7 +47,7 @@ export default {
 </script>
 
 <style scoped>
-.UserMenu {
+div {
   position: relative;
 }
 

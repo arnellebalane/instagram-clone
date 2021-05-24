@@ -64,9 +64,4 @@ button {
   color: var(--primary);
   background: none;
 }
-
-button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
 </style>

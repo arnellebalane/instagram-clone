@@ -43,3 +43,9 @@ button {
 a {
   text-decoration: none;
 }
+
+input:disabled,
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

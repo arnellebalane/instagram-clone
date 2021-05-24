@@ -37,11 +37,6 @@ button {
   cursor: pointer;
 }
 
-button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
 button.filled {
   color: var(--white);
   background-color: var(--primary);

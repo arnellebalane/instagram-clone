@@ -5,10 +5,11 @@
 </template>
 
 <style scoped>
-.AppError {
+p {
   max-width: 36rem;
   padding: 8px 1.6rem;
   border-radius: 4px;
+
   font-weight: 700;
   text-align: center;
   color: var(--white);

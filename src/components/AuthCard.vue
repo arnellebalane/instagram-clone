@@ -5,7 +5,7 @@
 </template>
 
 <style scoped>
-.AuthCard {
+div {
   display: flex;
   flex-direction: column;
   gap: 2rem;

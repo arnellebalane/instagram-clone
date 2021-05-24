@@ -13,7 +13,7 @@
 </template>
 
 <style scoped>
-.PostActions {
+div {
   display: flex;
   padding: 8px;
 }
