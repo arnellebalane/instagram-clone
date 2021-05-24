@@ -19,8 +19,8 @@
 }
 
 button {
-  width: 4rem;
-  height: 4rem;
+  width: 3.8rem;
+  height: 3.8rem;
   padding: 8px;
   border: none;
   background: none;

@@ -1,6 +1,8 @@
 <template>
-  <div>
-    <time :datetime="post.datePosted.toISOString()">{{ datePosted }}</time>
+  <div class="PostDate">
+    <RouterLink :to="{ name: 'post', params: { id: post.id } }">
+      <time :datetime="post.datePosted.toISOString()">{{ datePosted }}</time>
+    </RouterLink>
   </div>
 </template>
 
@@ -29,6 +31,10 @@ export default {
 <style scoped>
 div {
   padding: 0 1.6rem;
+}
+
+a {
+  text-decoration: none;
 }
 
 time {

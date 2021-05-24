@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="PostComments">
     <p>
       <RouterLink :to="{ name: 'profile', params: { id: post.author.id } }">{{ post.author.name }}</RouterLink>
       {{ post.caption }}
@@ -25,11 +25,14 @@ export default {
 
 <style scoped>
 div {
-  padding: 1rem 1.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  padding: 0 1.6rem;
 }
 
 p {
-  margin: 4px 0;
   font-size: 1.4rem;
 }
 

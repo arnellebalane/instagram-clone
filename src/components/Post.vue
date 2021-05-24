@@ -45,4 +45,13 @@ article {
   border-radius: 2px;
   background-color: var(--white);
 }
+
+.PostStats,
+.PostDate {
+  margin-bottom: 8px;
+}
+
+.PostComments {
+  margin-bottom: 4px;
+}
 </style>
