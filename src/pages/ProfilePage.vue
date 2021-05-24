@@ -1,15 +1,18 @@
 <template>
   <div class="ProfilePage">
     <ProfileHeader :user="user" />
+    <ProfileStats :user="user" />
   </div>
 </template>
 
 <script>
 import ProfileHeader from '@components/ProfileHeader.vue';
+import ProfileStats from '@components/ProfileStats.vue';
 
 export default {
   components: {
     ProfileHeader,
+    ProfileStats,
   },
 
   data() {
@@ -28,3 +31,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.ProfileHeader {
+  margin-bottom: 2.4rem;
+}
+</style>
