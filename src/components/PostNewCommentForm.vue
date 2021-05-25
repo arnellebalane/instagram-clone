@@ -1,6 +1,6 @@
 <template>
   <form @submit.prevent="submitForm">
-    <img :src="currentUser.photoURL" :alt="currentUser.displayName" />
+    <img :src="currentUserPhotoURL" :alt="currentUser?.displayName" />
     <input type="text" name="comment" placeholder="Add a comment..." v-model="comment" required />
     <button :disabled="!isFormValid">Post</button>
   </form>
@@ -8,6 +8,7 @@
 
 <script>
 import { mapState } from 'vuex';
+import defaultPhoto from '@assets/images/default-photo.jpg';
 
 export default {
   emits: ['submit'],
@@ -20,6 +21,10 @@ export default {
 
   computed: {
     ...mapState(['currentUser']),
+
+    currentUserPhotoURL() {
+      return this.currentUser?.photoURL || defaultPhoto;
+    },
 
     isFormValid() {
       return this.comment.length > 0;

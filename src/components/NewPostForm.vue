@@ -1,6 +1,6 @@
 <template>
   <form class="NewPostForm" @submit.prevent="submitForm">
-    <img class="Avatar" :src="currentUserPhotoURL" :alt="currentUser.displayName" />
+    <img class="Avatar" :src="currentUserPhotoURL" :alt="currentUser?.displayName" />
 
     <div class="Fields">
       <input type="text" name="caption" placeholder="Add a caption..." v-model="caption" required />
@@ -37,7 +37,7 @@ export default {
     ...mapState(['currentUser']),
 
     currentUserPhotoURL() {
-      return this.currentUser.photoURL || defaultPhoto;
+      return this.currentUser?.photoURL || defaultPhoto;
     },
 
     isFormValid() {
