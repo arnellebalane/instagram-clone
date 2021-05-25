@@ -4,13 +4,8 @@
 
     <div class="Fields">
       <input type="text" name="caption" placeholder="Add a caption..." v-model="caption" required />
-
-      <button v-if="file" class="ResetButton" type="button" @click="handleClear">Clear</button>
-      <label v-else>
-        <input type="file" name="file" @change="handleChange" />
-      </label>
-
-      <button class="SubmitButton" :disabled="!isFormValid">Post</button>
+      <FilePicker @change="handleChange" />
+      <button :disabled="!isFormValid">Post</button>
     </div>
 
     <div v-if="filePreviewURL" class="Preview">
@@ -20,9 +15,14 @@
 </template>
 
 <script>
+import FilePicker from '@components/FilePicker.vue';
 import defaultPhoto from '@assets/images/default-photo.jpg';
 
 export default {
+  components: {
+    FilePicker,
+  },
+
   emits: ['submit'],
 
   data() {
@@ -51,13 +51,11 @@ export default {
   },
 
   methods: {
-    handleChange(event) {
-      this.file = event.target.files[0];
-    },
-
-    handleClear() {
-      this.caption = '';
-      this.file = null;
+    handleChange(file) {
+      this.file = file;
+      if (!file) {
+        this.caption = '';
+      }
     },
 
     handleSubmit() {
@@ -106,41 +104,7 @@ input[type='text'] {
   resize: none;
 }
 
-label,
-.ResetButton {
-  width: 3.2rem;
-  height: 3.2rem;
-  border-radius: 4px;
-  background: var(--gray-100) center center no-repeat;
-  background-size: 1.8rem;
-  cursor: pointer;
-}
-
-label:hover,
-label:focus-within,
-.ResetButton:hover,
-.ResetButton:focus {
-  background-color: var(--gray-200);
-}
-
-label {
-  position: relative;
-  background-image: url('@assets/icons/image.svg');
-}
-
-.ResetButton {
-  border: none;
-  font-size: 0;
-  background-image: url('@assets/icons/close.svg');
-}
-
-input[type='file'] {
-  position: absolute;
-  opacity: 0;
-  transform: scale(0);
-}
-
-.SubmitButton {
+button {
   padding: 0 1.2rem;
   border: none;
   border-radius: 4px;
