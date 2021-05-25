@@ -1,12 +1,17 @@
 <template>
-  <Feed :posts="posts" />
+  <div class="Feed">
+    <NewPostForm @submit="createPost" />
+    <Feed :posts="posts" />
+  </div>
 </template>
 
 <script>
+import NewPostForm from '@components/NewPostForm.vue';
 import Feed from '@components/Feed.vue';
 
 export default {
   components: {
+    NewPostForm,
     Feed,
   },
 
@@ -64,5 +69,17 @@ export default {
       ],
     };
   },
+
+  methods: {
+    createPost(data) {
+      console.log(data);
+    },
+  },
 };
 </script>
+
+<style scoped>
+.NewPostForm {
+  margin-bottom: 2.4rem;
+}
+</style>

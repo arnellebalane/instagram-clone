@@ -36,7 +36,8 @@ body {
 
 a,
 input,
-button {
+button,
+textarea {
   font: inherit;
   color: inherit;
 }
