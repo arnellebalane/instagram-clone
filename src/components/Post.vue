@@ -6,7 +6,7 @@
     <PostStats :post="post" />
     <PostComments :post="post" />
     <PostDate :post="post" />
-    <PostNewCommentForm />
+    <PostNewCommentForm @submit="createComment" />
   </article>
 </template>
 
@@ -34,6 +34,12 @@ export default {
     post: {
       type: Object,
       required: true,
+    },
+  },
+
+  methods: {
+    createComment(data) {
+      console.log(data);
     },
   },
 };

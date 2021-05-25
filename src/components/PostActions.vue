@@ -1,13 +1,16 @@
 <template>
   <div class="PostActions">
     <button>
-      <img src="@assets/icons/heart.svg" alt="Share" />
+      <img src="@assets/icons/heart.svg" alt="Like" />
+      Like
     </button>
     <button>
-      <img src="@assets/icons/comment.svg" alt="Share" />
+      <img src="@assets/icons/comment.svg" alt="Comment" />
+      Comment
     </button>
     <button>
       <img src="@assets/icons/share.svg" alt="Share" />
+      Share
     </button>
   </div>
 </template>
@@ -23,6 +26,7 @@ button {
   height: 3.8rem;
   padding: 8px;
   border: none;
+  font-size: 0;
   background: none;
   cursor: pointer;
 }

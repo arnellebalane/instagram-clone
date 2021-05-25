@@ -1,6 +1,6 @@
 <template>
-  <AppHeader v-if="$store.getters.isLoggedIn" />
-  <AppError v-if="$store.getters.hasError">{{ $store.state.error }}</AppError>
+  <AppHeader v-if="isLoggedIn" />
+  <AppError v-if="hasError">{{ error }}</AppError>
 
   <div class="Wrapper">
     <RouterView class="Page" />
@@ -8,6 +8,7 @@
 </template>
 
 <script>
+import { mapState, mapGetters } from 'vuex';
 import { auth } from '@lib/firebase';
 import AppHeader from '@components/AppHeader.vue';
 import AppError from '@components/AppError.vue';
@@ -18,6 +19,11 @@ export default {
     AppHeader,
     AppError,
     LoginPage,
+  },
+
+  computed: {
+    ...mapState(['error']),
+    ...mapGetters(['isLoggedIn', 'hasError']),
   },
 
   mounted() {

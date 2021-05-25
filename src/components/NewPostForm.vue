@@ -1,10 +1,10 @@
 <template>
-  <form class="NewPostForm" @submit.prevent="handleSubmit">
-    <img class="Avatar" :src="userPhoto" :alt="user.displayName" />
+  <form class="NewPostForm" @submit.prevent="submitForm">
+    <img class="Avatar" :src="currentUserPhoto" :alt="currentUser.displayName" />
 
     <div class="Fields">
       <input type="text" name="caption" placeholder="Add a caption..." v-model="caption" required />
-      <FilePicker @change="handleChange" />
+      <FilePicker @change="selectFile" />
       <button :disabled="!isFormValid">Post</button>
     </div>
 
@@ -15,6 +15,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import FilePicker from '@components/FilePicker.vue';
 import defaultPhoto from '@assets/images/default-photo.jpg';
 
@@ -33,12 +34,10 @@ export default {
   },
 
   computed: {
-    user() {
-      return this.$store.state.currentUser;
-    },
+    ...mapState(['currentUser']),
 
-    userPhoto() {
-      return this.user.photoURL || defaultPhoto;
+    currentUserPhoto() {
+      return this.currentUser.photoURL || defaultPhoto;
     },
 
     isFormValid() {
@@ -51,14 +50,14 @@ export default {
   },
 
   methods: {
-    handleChange(file) {
+    selectFile(file) {
       this.file = file;
       if (!file) {
         this.caption = '';
       }
     },
 
-    handleSubmit() {
+    submitForm() {
       this.$emit('submit', {
         file: this.file,
         caption: this.caption,

@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="handleSubmit">
+  <form @submit.prevent="submitForm">
     <input type="name" name="name" placeholder="Full name" v-model="name" :disabled="loading" required />
     <input type="email" name="email" placeholder="Email" v-model="email" :disabled="loading" required />
     <input type="password" name="password" placeholder="Password" v-model="password" :disabled="loading" required />
@@ -31,7 +31,7 @@ export default {
   },
 
   methods: {
-    handleSubmit() {
+    submitForm() {
       this.$emit('submit', {
         name: this.name,
         email: this.email,

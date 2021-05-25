@@ -1,12 +1,14 @@
 <template>
-  <form @submit.prevent="handleSubmit">
-    <img :src="$store.state.currentUser.photoURL" :alt="$store.state.currentUser.displayName" />
+  <form @submit.prevent="submitForm">
+    <img :src="currentUser.photoURL" :alt="currentUser.displayName" />
     <input type="text" name="comment" placeholder="Add a comment..." v-model="comment" required />
     <button :disabled="!isFormValid">Post</button>
   </form>
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
   emits: ['submit'],
 
@@ -17,13 +19,15 @@ export default {
   },
 
   computed: {
+    ...mapState(['currentUser']),
+
     isFormValid() {
       return this.comment.length > 0;
     },
   },
 
   methods: {
-    handleSubmit() {
+    submitForm() {
       this.$emit('submit', {
         comment: this.comment,
       });

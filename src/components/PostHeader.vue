@@ -1,6 +1,7 @@
 <template>
   <header>
     <img :src="post.author.photoURL" :alt="post.author.name" />
+
     <RouterLink :to="{ name: 'profile', params: { id: post.author.id } }">
       {{ post.author.name }}
     </RouterLink>

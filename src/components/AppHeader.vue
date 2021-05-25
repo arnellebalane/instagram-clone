@@ -4,6 +4,7 @@
       <RouterLink to="/feed">
         <img src="@assets/images/logo.png" alt="Instagram logo" />
       </RouterLink>
+
       <UserMenu />
     </div>
   </header>

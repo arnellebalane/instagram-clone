@@ -1,8 +1,8 @@
 <template>
   <div>
-    <button v-if="file" type="button" @click="handleClear">Clear</button>
+    <button v-if="file" type="button" @click="clearFile">Clear</button>
     <label v-else>
-      <input type="file" name="file" @change="handleChange" />
+      <input type="file" name="file" @change="selectFile" />
     </label>
   </div>
 </template>
@@ -24,11 +24,11 @@ export default {
   },
 
   methods: {
-    handleClear() {
+    clearFile() {
       this.file = null;
     },
 
-    handleChange(event) {
+    selectFile(event) {
       this.file = event.target.files[0];
     },
   },

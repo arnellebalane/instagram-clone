@@ -1,14 +1,15 @@
 <template>
   <div class="UserMenu">
     <button :class="{ open: isOpen }" @click.stop="toggleDropdown">
-      <img :src="userPhoto" :alt="user.displayName" />
+      <img :src="currentUserPhoto" :alt="currentUser.displayName" />
     </button>
 
-    <UserDropdown v-model="isOpen" :user="user" @logout="logout" />
+    <UserDropdown v-model="isOpen" :user="currentUser" @logout="logout" />
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import { auth } from '@lib/firebase';
 import UserDropdown from '@components/UserDropdown.vue';
 import defaultPhoto from '@assets/images/default-photo.jpg';
@@ -25,12 +26,10 @@ export default {
   },
 
   computed: {
-    user() {
-      return this.$store.state.currentUser;
-    },
+    ...mapState(['currentUser']),
 
-    userPhoto() {
-      return this.user.photoURL || defaultPhoto;
+    currentUserPhoto() {
+      return this.currentUser.photoURL || defaultPhoto;
     },
   },
 
