@@ -6,7 +6,7 @@
     <PostStats :post="post" />
     <PostComments :post="post" />
     <PostDate :post="post" />
-    <PostNewComment />
+    <PostNewCommentForm />
   </article>
 </template>
 
@@ -17,7 +17,7 @@ import PostActions from '@components/PostActions.vue';
 import PostStats from '@components/PostStats.vue';
 import PostComments from '@components/PostComments.vue';
 import PostDate from '@components/PostDate.vue';
-import PostNewComment from '@components/PostNewComment.vue';
+import PostNewCommentForm from '@components/PostNewCommentForm.vue';
 
 export default {
   components: {
@@ -27,7 +27,7 @@ export default {
     PostStats,
     PostComments,
     PostDate,
-    PostNewComment,
+    PostNewCommentForm,
   },
 
   props: {
