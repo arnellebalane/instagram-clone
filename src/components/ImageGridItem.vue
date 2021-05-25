@@ -2,10 +2,10 @@
   <div class="ImageGridItem">
     <img class="Image" :src="post.photoURL" :alt="post.caption" />
 
-    <div class="Stats">
+    <RouterLink :to="{ name: 'post', params: { id: post.id } }">
       <img src="@assets/icons/heart-filled.svg" alt="" />
       <p>{{ post.likesCount }}</p>
-    </div>
+    </RouterLink>
   </div>
 </template>
 
@@ -36,7 +36,7 @@ export default {
   object-position: center center;
 }
 
-.Stats {
+a {
   position: absolute;
   top: 0;
   left: 0;
@@ -47,10 +47,9 @@ export default {
   align-items: center;
   gap: 8px;
   background-color: var(--gray-transparent);
-  pointer-events: none;
 }
 
-.ImageGridItem:not(:hover) .Stats {
+.ImageGridItem:not(:hover) a {
   display: none;
 }
 
