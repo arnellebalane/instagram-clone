@@ -47,9 +47,7 @@ button {
   cursor: pointer;
 }
 
-label:hover,
 label:focus-within,
-button:hover,
 button:focus {
   background-color: var(--gray-200);
 }

@@ -58,8 +58,9 @@ input {
 }
 
 button {
-  padding: 8px 0;
+  padding: 8px;
   border: none;
+  margin-right: -8px;
   font-weight: 700;
   color: var(--primary);
   background: none;

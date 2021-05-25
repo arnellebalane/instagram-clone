@@ -47,10 +47,12 @@ a {
   align-items: center;
   gap: 8px;
   background-color: var(--gray-transparent);
+  opacity: 0;
 }
 
-.ImageGridItem:not(:hover) a {
-  display: none;
+.ImageGridItem:hover a,
+.ImageGridItem:focus-within a {
+  opacity: 1;
 }
 
 p {
