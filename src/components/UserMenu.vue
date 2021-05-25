@@ -1,7 +1,7 @@
 <template>
   <div class="UserMenu">
     <button :class="{ open: isOpen }" @click.stop="toggleDropdown">
-      <img :src="currentUserPhoto" :alt="currentUser.displayName" />
+      <img :src="currentUserPhotoURL" :alt="currentUser.displayName" />
     </button>
 
     <UserDropdown v-model="isOpen" :user="currentUser" @logout="logout" />
@@ -28,7 +28,7 @@ export default {
   computed: {
     ...mapState(['currentUser']),
 
-    currentUserPhoto() {
+    currentUserPhotoURL() {
       return this.currentUser.photoURL || defaultPhoto;
     },
   },

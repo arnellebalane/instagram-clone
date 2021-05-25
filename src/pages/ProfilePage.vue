@@ -22,7 +22,7 @@ export default {
     return {
       user: {
         id: 'abc123',
-        name: 'Arnelle Balane',
+        displayName: 'Arnelle Balane',
         email: 'arnellebalane@gmail.com',
         photoURL: 'https://lh3.googleusercontent.com/a-/AOh14GgvGHJODi4nZbu_nj5UCVirg3aR0jpzkHgJvAr2og=s96-c',
         postsCount: 10,
@@ -45,13 +45,13 @@ export default {
             datePosted: new Date('2021-05-02 05:12:21'),
             author: {
               id: 'abcdef123456',
-              name: 'Random User',
+              displayName: 'Random User',
             },
           },
         ],
         author: {
           id: 'abcd1234',
-          name: 'Arnelle Balane',
+          displayName: 'Arnelle Balane',
           photoURL: 'https://lh3.googleusercontent.com/a-/AOh14GgvGHJODi4nZbu_nj5UCVirg3aR0jpzkHgJvAr2og=s96-c',
         },
       })),

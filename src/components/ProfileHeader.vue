@@ -1,20 +1,28 @@
 <template>
   <header>
-    <img :src="user.photoURL" :alt="user.name" />
+    <img :src="userPhotoURL" :alt="user.displayName" />
 
     <div>
-      <h1>{{ user.name }}</h1>
+      <h1>{{ user.displayName }}</h1>
       <p>{{ user.description }}</p>
     </div>
   </header>
 </template>
 
 <script>
+import defaultPhoto from '@assets/images/default-photo.jpg';
+
 export default {
   props: {
     user: {
       type: Object,
       required: true,
+    },
+  },
+
+  computed: {
+    userPhotoURL() {
+      return this.user.photoURL || defaultPhoto;
     },
   },
 };

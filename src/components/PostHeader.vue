@@ -1,19 +1,27 @@
 <template>
   <header>
-    <img :src="post.author.photoURL" :alt="post.author.name" />
+    <img :src="authorPhotoURL" :alt="post.author.displayName" />
 
     <RouterLink :to="{ name: 'profile', params: { id: post.author.id } }">
-      {{ post.author.name }}
+      {{ post.author.displayName }}
     </RouterLink>
   </header>
 </template>
 
 <script>
+import defaultPhoto from '@assets/images/default-photo.jpg';
+
 export default {
   props: {
     post: {
       type: Object,
       required: true,
+    },
+  },
+
+  computed: {
+    authorPhotoURL() {
+      return this.post.author.photoURL || defaultPhoto;
     },
   },
 };

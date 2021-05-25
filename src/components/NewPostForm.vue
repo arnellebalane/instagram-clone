@@ -1,6 +1,6 @@
 <template>
   <form class="NewPostForm" @submit.prevent="submitForm">
-    <img class="Avatar" :src="currentUserPhoto" :alt="currentUser.displayName" />
+    <img class="Avatar" :src="currentUserPhotoURL" :alt="currentUser.displayName" />
 
     <div class="Fields">
       <input type="text" name="caption" placeholder="Add a caption..." v-model="caption" required />
@@ -36,7 +36,7 @@ export default {
   computed: {
     ...mapState(['currentUser']),
 
-    currentUserPhoto() {
+    currentUserPhotoURL() {
       return this.currentUser.photoURL || defaultPhoto;
     },
 
