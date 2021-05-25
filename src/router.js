@@ -8,14 +8,14 @@ import PostPage from '@pages/PostPage.vue';
 
 function ensureLoggedIn() {
   if (!store.getters.isLoggedIn) {
-    return { to: { name: 'login' } };
+    return { name: 'login' };
   }
   return true;
 }
 
 function ensureLoggedOut() {
   if (store.getters.isLoggedIn) {
-    return { to: { name: 'feed' } };
+    return { name: 'feed' };
   }
   return true;
 }
@@ -25,18 +25,12 @@ const routes = [
     path: '/',
     name: 'login',
     component: LoginPage,
-    meta: {
-      isPublicPage: true,
-    },
     beforeEnter: [ensureLoggedOut],
   },
   {
     path: '/register',
     name: 'register',
     component: RegisterPage,
-    meta: {
-      isPublicPage: true,
-    },
     beforeEnter: [ensureLoggedOut],
   },
   {

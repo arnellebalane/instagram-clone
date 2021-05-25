@@ -9,7 +9,6 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex';
-import { auth } from '@lib/firebase';
 import AppHeader from '@components/AppHeader.vue';
 import AppError from '@components/AppError.vue';
 import LoginPage from '@pages/LoginPage.vue';
@@ -24,17 +23,6 @@ export default {
   computed: {
     ...mapState(['error']),
     ...mapGetters(['isLoggedIn', 'hasError']),
-  },
-
-  mounted() {
-    auth.onAuthStateChanged((user) => {
-      this.$store.commit('setCurrentUser', user);
-      if (user) {
-        this.$router.push({ name: 'feed' });
-      } else if (!this.$route.meta.isPublicPage) {
-        this.$router.push({ name: 'login' });
-      }
-    });
   },
 };
 </script>
