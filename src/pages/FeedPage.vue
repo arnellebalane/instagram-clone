@@ -1,6 +1,6 @@
 <template>
   <div class="FeedPage">
-    <NewPostForm :disabled="isLoading" @submit="createPost" />
+    <NewPostForm ref="newPostForm" :disabled="isLoading" @submit="createPost" />
     <Feed :posts="posts" />
   </div>
 </template>
@@ -99,6 +99,8 @@ export default {
         },
       };
       await postRef.set(postData);
+
+      this.$refs.newPostForm.clearForm();
       this.isLoading = false;
     },
   },

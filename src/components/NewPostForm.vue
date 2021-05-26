@@ -11,7 +11,7 @@
         v-model="caption"
         required
       />
-      <FilePicker :disabled="disabled" @change="selectFile" />
+      <FilePicker ref="filePicker" :disabled="disabled" @change="selectFile" />
       <button :disabled="disabled || !isFormValid">Post</button>
     </div>
 
@@ -66,6 +66,10 @@ export default {
       if (!file) {
         this.caption = '';
       }
+    },
+
+    clearForm() {
+      this.$refs.filePicker.clearFile();
     },
 
     submitForm() {
