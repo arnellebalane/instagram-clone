@@ -26,10 +26,19 @@ export default {
 
   computed: mapState(['currentUser']),
 
-  async mounted() {
-    const data = await db.collection('posts').orderBy('datePosted', 'desc').get();
-    const posts = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-    this.posts = posts;
+  mounted() {
+    this.unsubscribe = db
+      .collection('posts')
+      .orderBy('datePosted', 'desc')
+      .onSnapshot((snapshot) => {
+        this.posts = snapshot.docs
+          .filter((doc) => !doc.metadata.hasPendingWrites)
+          .map((doc) => ({ ...doc.data(), id: doc.id }));
+      });
+  },
+
+  unmounted() {
+    this.unsubscribe();
   },
 
   methods: {
