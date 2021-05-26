@@ -1,15 +1,20 @@
 rules_version = '2';
 service firebase.storage {
   match /b/{bucket}/o {
-    function validateCreatePhotoRequest() {
+    function validateCreatePhotoRequest(user) {
       return request.auth != null
-        && request.resource.metadata.owner == request.auth.uid
+        && user == request.auth.uid
         && request.resource.contentType.matches('image/.*');
     }
 
-    match /photos/{photo} {
+    function validateDeletePhotoRequest(user) {
+      return request.auth != null && user == request.auth.uid;
+    }
+
+    match /photos/{user}/{photo} {
       allow read;
-      allow create: if validateCreatePhotoRequest();
+      allow create: if validateCreatePhotoRequest(user);
+      allow delete: if validateDeletePhotoRequest(user);
     }
 
     match /{allPaths=**} {

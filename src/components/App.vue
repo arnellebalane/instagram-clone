@@ -48,8 +48,9 @@ export default {
 
 .AppError {
   position: fixed;
-  top: 1.6rem;
+  top: 3.2rem;
   left: 50%;
+  z-index: 11;
   transform: translateX(-50%);
 }
 
