@@ -20,60 +20,17 @@ export default {
   data() {
     return {
       isLoading: false,
-      posts: [
-        {
-          id: 'abc123',
-          photoURL:
-            'https://images.unsplash.com/photo-1621716362967-fd1c5281eef9?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500',
-          caption: 'This is a cool photo',
-          likesCount: 10,
-          datePosted: new Date('2021-05-01 03:14:00'),
-          comments: [
-            {
-              id: 'abcde12345',
-              body: 'this looks so cool!',
-              datePosted: new Date('2021-05-02 05:12:21'),
-              author: {
-                id: 'abcdef123456',
-                displayName: 'Random User',
-              },
-            },
-          ],
-          author: {
-            id: 'abcd1234',
-            displayName: 'Arnelle Balane',
-            photoURL: 'https://lh3.googleusercontent.com/a-/AOh14GgvGHJODi4nZbu_nj5UCVirg3aR0jpzkHgJvAr2og=s96-c',
-          },
-        },
-        {
-          id: 'abc1234',
-          photoURL:
-            'https://images.unsplash.com/photo-1621716362967-fd1c5281eef9?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500',
-          caption: 'This is a cool photo',
-          likesCount: 10,
-          datePosted: new Date('2021-05-01 03:14:00'),
-          comments: [
-            {
-              id: 'abcde12345',
-              body: 'this looks so cool!',
-              datePosted: new Date('2021-05-02 05:12:21'),
-              author: {
-                id: 'abcdef123456',
-                displayName: 'Random User',
-              },
-            },
-          ],
-          author: {
-            id: 'abcd1234',
-            displayName: 'Arnelle Balane',
-            photoURL: 'https://lh3.googleusercontent.com/a-/AOh14GgvGHJODi4nZbu_nj5UCVirg3aR0jpzkHgJvAr2og=s96-c',
-          },
-        },
-      ],
+      posts: [],
     };
   },
 
   computed: mapState(['currentUser']),
+
+  async mounted() {
+    const data = await db.collection('posts').orderBy('datePosted', 'desc').get();
+    const posts = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+    this.posts = posts;
+  },
 
   methods: {
     async submitPost(data) {

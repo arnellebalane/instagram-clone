@@ -7,7 +7,7 @@
       {{ post.caption }}
     </p>
 
-    <p v-for="comment in post.comments" :key="comment.id">
+    <p v-for="comment in comments" :key="comment.id">
       <RouterLink :to="{ name: 'profile', params: { id: comment.author.id } }">
         {{ comment.author.displayName }}
       </RouterLink>
@@ -22,6 +22,12 @@ export default {
     post: {
       type: Object,
       required: true,
+    },
+  },
+
+  computed: {
+    comments() {
+      return this.post.latestComments || [];
     },
   },
 };

@@ -1,7 +1,7 @@
 <template>
   <div class="PostDate">
     <RouterLink :to="{ name: 'post', params: { id: post.id } }">
-      <time :datetime="post.datePosted.toISOString()">{{ datePosted }}</time>
+      <time :datetime="datePostedISO">{{ datePostedFormatted }}</time>
     </RouterLink>
   </div>
 </template>
@@ -22,7 +22,15 @@ export default {
 
   computed: {
     datePosted() {
-      return dayjs(this.post.datePosted).fromNow();
+      return this.post.datePosted.toDate();
+    },
+
+    datePostedISO() {
+      return this.datePosted.toISOString();
+    },
+
+    datePostedFormatted() {
+      return dayjs(this.datePosted).fromNow();
     },
   },
 };

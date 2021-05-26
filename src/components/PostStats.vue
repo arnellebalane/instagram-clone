@@ -1,6 +1,6 @@
 <template>
   <div class="PostStats">
-    <p>{{ post.likesCount }} likes</p>
+    <p>{{ likesCount }} likes</p>
   </div>
 </template>
 
@@ -10,6 +10,12 @@ export default {
     post: {
       type: Object,
       required: true,
+    },
+  },
+
+  computed: {
+    likesCount() {
+      return this.post.likesCount || 0;
     },
   },
 };
