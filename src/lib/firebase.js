@@ -3,7 +3,7 @@ import 'firebase/auth';
 
 firebase.initializeApp({
   apiKey: 'AIzaSyAXdcZ5iPaIVvQigRaJLirDtyxehC2sMkw',
-  authDomain: 'instagram-clone-2d8bc.firebaseapp.com',
+  authDomain: 'instagram-clone.arnelle.me',
   projectId: 'instagram-clone-2d8bc',
   storageBucket: 'instagram-clone-2d8bc.appspot.com',
   messagingSenderId: '595004279383',
