@@ -80,7 +80,11 @@ export default {
 
       const photoType = data.file.type.split('/')[1];
       const photoRef = storage.ref(`photos/${postRef.id}.${photoType}`);
-      await photoRef.put(data.file);
+      await photoRef.put(data.file, {
+        customMetadata: {
+          owner: this.currentUser.uid,
+        },
+      });
 
       const postData = {
         caption: data.caption,
