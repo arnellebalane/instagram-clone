@@ -1,9 +1,14 @@
-const functions = require("firebase-functions");
+const path = require('path');
+require('dotenv').config({
+  path: path.resolve(__dirname, '.env.local'),
+});
+
+const functions = require('firebase-functions');
 
 // // Create and Deploy Your First Cloud Functions
 // // https://firebase.google.com/docs/functions/write-firebase-functions
 //
 // exports.helloWorld = functions.https.onRequest((request, response) => {
-//   functions.logger.info("Hello logs!", {structuredData: true});
-//   response.send("Hello from Firebase!");
+//   functions.logger.info('Hello logs!', { structuredData: true });
+//   response.send('Hello from Firebase!');
 // });

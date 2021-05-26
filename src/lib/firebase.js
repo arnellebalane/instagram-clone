@@ -1,5 +1,7 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
+import 'firebase/firestore';
+import 'firebase/storage';
 
 firebase.initializeApp({
   apiKey: 'AIzaSyAXdcZ5iPaIVvQigRaJLirDtyxehC2sMkw',
@@ -12,3 +14,11 @@ firebase.initializeApp({
 
 export default firebase;
 export const auth = firebase.auth();
+export const db = firebase.firestore();
+export const storage = firebase.storage();
+
+if (import.meta.env.VITE_USE_EMULATORS === 'true') {
+  auth.useEmulator('http://localhost:9099');
+  db.useEmulator('localhost', 8081);
+  storage.useEmulator('localhost', 9199);
+}
