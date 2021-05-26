@@ -1,14 +1,18 @@
 <template>
   <div>
-    <button v-if="file" type="button" @click="clearFile">Clear</button>
+    <button v-if="file" type="button" :disabled="disabled" @click="clearFile">Clear</button>
     <label v-else>
-      <input type="file" name="file" accept="image/*" @change="selectFile" />
+      <input type="file" name="file" accept="image/*" :disabled="disabled" @change="selectFile" />
     </label>
   </div>
 </template>
 
 <script>
 export default {
+  props: {
+    disabled: Boolean,
+  },
+
   emits: ['change'],
 
   data() {

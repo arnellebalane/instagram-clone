@@ -3,9 +3,16 @@
     <img class="Avatar" :src="currentUserPhotoURL" :alt="currentUser?.displayName" />
 
     <div class="Fields">
-      <input type="text" name="caption" placeholder="Add a caption..." v-model="caption" required />
-      <FilePicker @change="selectFile" />
-      <button :disabled="!isFormValid">Post</button>
+      <input
+        type="text"
+        name="caption"
+        placeholder="Add a caption..."
+        :disabled="disabled"
+        v-model="caption"
+        required
+      />
+      <FilePicker :disabled="disabled" @change="selectFile" />
+      <button :disabled="disabled || !isFormValid">Post</button>
     </div>
 
     <div v-if="filePreviewURL" class="Preview">
@@ -22,6 +29,10 @@ import defaultPhoto from '@assets/images/default-photo.jpg';
 export default {
   components: {
     FilePicker,
+  },
+
+  props: {
+    disabled: Boolean,
   },
 
   emits: ['submit'],

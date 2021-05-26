@@ -1,6 +1,6 @@
 <template>
   <div class="FeedPage">
-    <NewPostForm @submit="createPost" />
+    <NewPostForm :disabled="isLoading" @submit="createPost" />
     <Feed :posts="posts" />
   </div>
 </template>
@@ -19,6 +19,7 @@ export default {
 
   data() {
     return {
+      isLoading: false,
       posts: [
         {
           id: 'abc123',
@@ -76,6 +77,7 @@ export default {
 
   methods: {
     async createPost(data) {
+      this.isLoading = true;
       const postRef = db.collection('posts').doc();
 
       const photoType = data.file.type.split('/')[1];
@@ -97,6 +99,7 @@ export default {
         },
       };
       await postRef.set(postData);
+      this.isLoading = false;
     },
   },
 };
