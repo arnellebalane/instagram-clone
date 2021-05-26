@@ -2,7 +2,7 @@
   <article>
     <PostHeader :post="post" />
     <PostImage :post="post" />
-    <PostActions :post="post" />
+    <PostActions :post="post" @like="likePost" @comment="startComment" @share="sharePost" />
     <PostStats :post="post" />
     <PostComments :post="post" />
     <PostDate :post="post" />
@@ -40,6 +40,18 @@ export default {
   methods: {
     createComment(data) {
       console.log(data);
+    },
+
+    likePost() {
+      console.log('like', { id: this.post.id });
+    },
+
+    startComment() {
+      console.log('comment', { id: this.post.id });
+    },
+
+    sharePost() {
+      console.log('share', { id: this.post.id });
     },
   },
 };

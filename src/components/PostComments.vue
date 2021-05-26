@@ -1,14 +1,16 @@
 <template>
   <div class="PostComments">
     <p>
-      <RouterLink :to="{ name: 'profile', params: { id: post.author.id } }">{{ post.author.displayName }}</RouterLink>
+      <RouterLink :to="{ name: 'profile', params: { id: post.author.id } }">
+        {{ post.author.displayName }}
+      </RouterLink>
       {{ post.caption }}
     </p>
 
     <p v-for="comment in post.comments" :key="comment.id">
-      <RouterLink :to="{ name: 'profile', params: { id: comment.author.id } }">{{
-        comment.author.displayName
-      }}</RouterLink>
+      <RouterLink :to="{ name: 'profile', params: { id: comment.author.id } }">
+        {{ comment.author.displayName }}
+      </RouterLink>
       {{ comment.body }}
     </p>
   </div>

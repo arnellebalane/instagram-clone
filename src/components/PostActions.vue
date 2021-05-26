@@ -1,19 +1,25 @@
 <template>
   <div class="PostActions">
-    <button>
+    <button @click="$emit('like')">
       <img src="@assets/icons/heart.svg" alt="Like" />
       Like
     </button>
-    <button>
+    <button @click="$emit('comment')">
       <img src="@assets/icons/comment.svg" alt="Comment" />
       Comment
     </button>
-    <button>
+    <button @click="$emit('share')">
       <img src="@assets/icons/share.svg" alt="Share" />
       Share
     </button>
   </div>
 </template>
+
+<script>
+export default {
+  emits: ['like', 'comment', 'share'],
+};
+</script>
 
 <style scoped>
 div {
