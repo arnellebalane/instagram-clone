@@ -1,9 +1,23 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
+    function validateCreatePostData(data) {
+      let fields = ['caption', 'photoURL', 'datePosted', 'author'];
+      return request.auth != null
+        && data.keys().hasAll(fields)
+        && data.keys().hasOnly(fields)
+        && data.datePosted == request.time
+        && data.author.id == request.auth.uid
+        && data.author.displayName == request.auth.token.name;
+    }
+
+    match /posts/{post} {
+      allow read;
+      allow create: if validateCreatePostData(request.resource.data);
+    }
+
     match /{document=**} {
-      allow read, write: if
-          request.time < timestamp.date(2021, 6, 25);
+      allow read, write: if false;
     }
   }
 }
