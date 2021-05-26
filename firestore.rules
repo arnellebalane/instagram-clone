@@ -11,9 +11,24 @@ service cloud.firestore {
         && request.resource.data.author.displayName == request.auth.token.name;
     }
 
+    function validateCreateCommentRequest() {
+      let fields = ['body', 'datePosted', 'author'];
+      return request.auth != null
+        && request.resource.data.keys().hasAll(fields)
+        && request.resource.data.keys().hasOnly(fields)
+        && request.resource.data.datePosted == request.time
+        && request.resource.data.author.id == request.auth.uid
+        && request.resource.data.author.displayName == request.auth.token.name;
+    }
+
     match /posts/{post} {
       allow read: if request.auth != null;
       allow create: if validateCreatePostRequest();
+
+      match /comments/{comment} {
+        allow read: if request.auth != null;
+        allow create: if validateCreateCommentRequest();
+      }
     }
 
     match /{document=**} {

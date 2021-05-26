@@ -6,7 +6,7 @@
     <PostStats :post="post" />
     <PostComments :post="post" />
     <PostDate :post="post" />
-    <PostNewCommentForm @submit="createComment" />
+    <PostNewCommentForm :post="post" />
   </article>
 </template>
 
@@ -38,10 +38,6 @@ export default {
   },
 
   methods: {
-    createComment(data) {
-      console.log(data);
-    },
-
     likePost() {
       console.log('like', { id: this.post.id });
     },

@@ -1,21 +1,28 @@
 <template>
   <form @submit.prevent="submitForm">
     <img :src="currentUserPhotoURL" :alt="currentUser?.displayName" />
-    <input type="text" name="comment" placeholder="Add a comment..." v-model="comment" required />
-    <button :disabled="!isFormValid">Post</button>
+    <input type="text" name="comment" placeholder="Add a comment..." :disabled="isLoading" v-model="comment" required />
+    <button :disabled="isLoading || !isFormValid">Post</button>
   </form>
 </template>
 
 <script>
 import { mapState } from 'vuex';
+import firebase, { db } from '@lib/firebase';
 import defaultPhoto from '@assets/images/default-photo.jpg';
 
 export default {
-  emits: ['submit'],
+  props: {
+    post: {
+      type: Object,
+      required: true,
+    },
+  },
 
   data() {
     return {
       comment: '',
+      isLoading: false,
     };
   },
 
@@ -32,10 +39,30 @@ export default {
   },
 
   methods: {
-    submitForm() {
-      this.$emit('submit', {
-        comment: this.comment,
-      });
+    clearForm() {
+      this.comment = '';
+    },
+
+    async submitForm() {
+      this.isLoading = true;
+      this.$store.commit('clearError');
+
+      try {
+        await db.collection(`posts/${this.post.id}/comments`).add({
+          body: this.comment,
+          datePosted: firebase.firestore.FieldValue.serverTimestamp(),
+          author: {
+            id: this.currentUser.uid,
+            displayName: this.currentUser.displayName,
+          },
+        });
+        this.clearForm();
+      } catch (error) {
+        console.error(error);
+        this.$store.commit('setError', 'Failed to save comment. Please try again.');
+      }
+
+      this.isLoading = false;
     },
   },
 };
