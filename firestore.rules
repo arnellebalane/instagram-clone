@@ -1,19 +1,19 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    function validateCreatePostData(data) {
+    function validateCreatePostRequest() {
       let fields = ['caption', 'photoURL', 'datePosted', 'author'];
       return request.auth != null
-        && data.keys().hasAll(fields)
-        && data.keys().hasOnly(fields)
-        && data.datePosted == request.time
-        && data.author.id == request.auth.uid
-        && data.author.displayName == request.auth.token.name;
+        && request.resource.data.keys().hasAll(fields)
+        && request.resource.data.keys().hasOnly(fields)
+        && request.resource.data.datePosted == request.time
+        && request.resource.data.author.id == request.auth.uid
+        && request.resource.data.author.displayName == request.auth.token.name;
     }
 
     match /posts/{post} {
       allow read;
-      allow create: if validateCreatePostData(request.resource.data);
+      allow create: if validateCreatePostRequest();
     }
 
     match /{document=**} {
