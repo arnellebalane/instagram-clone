@@ -7,12 +7,12 @@
         type="text"
         name="caption"
         placeholder="Add a caption..."
-        :disabled="disabled"
+        :disabled="isLoading"
         v-model="caption"
         required
       />
-      <FilePicker ref="filePicker" :disabled="disabled" @change="selectFile" />
-      <button :disabled="disabled || !isFormValid">Post</button>
+      <FilePicker ref="filePicker" :disabled="isLoading" @change="selectFile" />
+      <button :disabled="isLoading || !isFormValid">Post</button>
     </div>
 
     <div v-if="filePreviewURL" class="Preview">
@@ -23,6 +23,7 @@
 
 <script>
 import { mapState } from 'vuex';
+import firebase, { db, storage } from '@lib/firebase';
 import FilePicker from '@components/FilePicker.vue';
 import defaultPhoto from '@assets/images/default-photo.jpg';
 
@@ -31,16 +32,11 @@ export default {
     FilePicker,
   },
 
-  props: {
-    disabled: Boolean,
-  },
-
-  emits: ['submit'],
-
   data() {
     return {
       file: null,
       caption: '',
+      isLoading: false,
     };
   },
 
@@ -72,11 +68,71 @@ export default {
       this.$refs.filePicker.clearFile();
     },
 
-    submitForm() {
-      this.$emit('submit', {
-        file: this.file,
-        caption: this.caption,
-      });
+    async submitForm() {
+      this.isLoading = true;
+      this.$store.commit('clearError');
+
+      const postRef = db.collection('posts').doc();
+      const [successfulPhotoUpload, photoRef] = await this.uploadPhoto(postRef.id, this.file);
+      if (!successfulPhotoUpload) {
+        this.$store.commit('setError', 'Failed to upload the photo. Please try again.');
+        this.isLoading = false;
+        return;
+      }
+
+      const data = { caption: this.caption };
+      const [successfulSavePost] = await this.savePost(postRef, photoRef, data);
+      if (!successfulSavePost) {
+        this.$store.commit('setError', 'Failed to save post. Please try again.');
+        await this.deletePhoto(photoRef);
+        this.isLoading = false;
+        return;
+      }
+
+      this.clearForm();
+      this.isLoading = false;
+    },
+
+    async uploadPhoto(fileName, file) {
+      const photoType = file.type.split('/')[1];
+      const photoRef = storage.ref(`photos/${this.currentUser.uid}/${fileName}.${photoType}`);
+      try {
+        await photoRef.put(file);
+        return [true, photoRef];
+      } catch (error) {
+        console.error(error);
+        return [false, error];
+      }
+    },
+
+    async savePost(postRef, photoRef, data) {
+      try {
+        const postData = {
+          caption: data.caption,
+          photoURL: await photoRef.getDownloadURL(),
+          datePosted: firebase.firestore.FieldValue.serverTimestamp(),
+          author: {
+            id: this.currentUser.uid,
+            displayName: this.currentUser.displayName,
+            photoURL: this.currentUser.photoURL,
+          },
+        };
+        await postRef.set(postData);
+        return [true, postRef];
+      } catch (error) {
+        console.error(error);
+        return [false, error];
+      }
+    },
+
+    async deletePhoto(photoRef) {
+      try {
+        await photoRef.delete();
+        return [true, photoRef];
+      } catch (error) {
+        console.error(error);
+        return [false, error];
+      }
     },
   },
 };
