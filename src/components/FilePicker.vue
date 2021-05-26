@@ -2,7 +2,7 @@
   <div>
     <button v-if="file" type="button" @click="clearFile">Clear</button>
     <label v-else>
-      <input type="file" name="file" @change="selectFile" />
+      <input type="file" name="file" accept="image/*" @change="selectFile" />
     </label>
   </div>
 </template>

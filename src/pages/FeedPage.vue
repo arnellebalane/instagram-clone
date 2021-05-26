@@ -6,6 +6,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+import firebase, { db, storage } from '@lib/firebase';
 import NewPostForm from '@components/NewPostForm.vue';
 import Feed from '@components/Feed.vue';
 
@@ -70,9 +72,27 @@ export default {
     };
   },
 
+  computed: mapState(['currentUser']),
+
   methods: {
-    createPost(data) {
-      console.log(data);
+    async createPost(data) {
+      const postRef = db.collection('posts').doc();
+
+      const photoType = data.file.type.split('/')[1];
+      const photoRef = storage.ref(`photos/${postRef.id}.${photoType}`);
+      await photoRef.put(data.file);
+
+      const postData = {
+        caption: data.caption,
+        photoURL: await photoRef.getDownloadURL(),
+        datePosted: firebase.firestore.FieldValue.serverTimestamp(),
+        author: {
+          id: this.currentUser.uid,
+          displayName: this.currentUser.displayName,
+          photoURL: this.currentUser.photoURL,
+        },
+      };
+      await postRef.set(postData);
     },
   },
 };
