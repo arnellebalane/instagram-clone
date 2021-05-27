@@ -31,6 +31,10 @@ service cloud.firestore {
       }
     }
 
+    match /users/{user} {
+      allow read;
+    }
+
     match /{document=**} {
       allow read, write: if false;
     }
