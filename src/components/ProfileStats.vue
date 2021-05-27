@@ -25,9 +25,7 @@ export default {
 
 <style scoped>
 ul {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  justify-items: center;
+  display: flex;
   gap: 4px;
   padding: 1.2rem 0;
   border-top: 1px solid var(--gray-200);
@@ -36,6 +34,7 @@ ul {
 }
 
 li {
+  flex-grow: 1;
   text-align: center;
   color: var(--gray-500);
 }
