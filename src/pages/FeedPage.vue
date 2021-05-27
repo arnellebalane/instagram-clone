@@ -3,11 +3,12 @@
     <NewPostForm />
 
     <FeedLoading v-if="postsLoading" />
-    <Feed v-else :posts="posts" />
+    <Feed v-else :posts="posts" :liked-posts="currentUserLikes" />
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import { db } from '@lib/firebase';
 import NewPostForm from '@components/NewPostForm.vue';
 import Feed from '@components/Feed.vue';
@@ -26,6 +27,8 @@ export default {
       postsLoading: true,
     };
   },
+
+  computed: mapState(['currentUserLikes']),
 
   mounted() {
     this.unsubscribe = db

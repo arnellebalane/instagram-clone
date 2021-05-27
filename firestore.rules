@@ -21,6 +21,10 @@ service cloud.firestore {
         && request.resource.data.author.displayName == request.auth.token.name;
     }
 
+    function  validateWriteLikeRequest(user) {
+      return request.auth != null && request.auth.uid == user;
+    }
+
     match /posts/{post} {
       allow read: if request.auth != null;
       allow create: if validateCreatePostRequest();
@@ -33,6 +37,11 @@ service cloud.firestore {
 
     match /users/{user} {
       allow read;
+
+      match /likes/{comment} {
+        allow read;
+        allow write: if validateWriteLikeRequest(user);
+      }
     }
 
     match /{document=**} {

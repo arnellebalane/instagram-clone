@@ -9,6 +9,7 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex';
+import { db } from '@lib/firebase';
 import AppHeader from '@components/AppHeader.vue';
 import AppError from '@components/AppError.vue';
 import LoginPage from '@pages/LoginPage.vue';
@@ -21,8 +22,19 @@ export default {
   },
 
   computed: {
-    ...mapState(['error']),
+    ...mapState(['currentUser', 'error']),
     ...mapGetters(['isLoggedIn', 'hasError']),
+  },
+
+  mounted() {
+    this.unsubscribeLikes = db.collection(`users/${this.currentUser.uid}/likes`).onSnapshot((snapshot) => {
+      const likes = snapshot.docs.map((doc) => ({ id: doc.id }));
+      this.$store.commit('setCurrentUserLikes', likes);
+    });
+  },
+
+  unmounted() {
+    this.unsubscribeLikes();
   },
 };
 </script>

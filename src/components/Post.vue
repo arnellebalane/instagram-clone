@@ -2,7 +2,7 @@
   <article>
     <PostHeader :post="post" />
     <PostImage :post="post" />
-    <PostActions :post="post" @like="likePost" @comment="startComment" @share="sharePost" />
+    <PostActions :post="post" :liked="liked" @like="likePost" @comment="startComment" @share="sharePost" />
     <PostStats :post="post" />
     <PostComments :post="post" :comments="comments" />
     <PostDate :post="post" />
@@ -11,6 +11,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+import { db } from '@lib/firebase';
 import PostHeader from '@components/PostHeader.vue';
 import PostImage from '@components/PostImage.vue';
 import PostActions from '@components/PostActions.vue';
@@ -39,11 +41,19 @@ export default {
       type: Array,
       required: true,
     },
+    liked: Boolean,
   },
 
+  computed: mapState(['currentUser']),
+
   methods: {
-    likePost() {
-      console.log('like', { id: this.post.id });
+    async likePost() {
+      const likeRef = db.doc(`users/${this.currentUser.uid}/likes/${this.post.id}`);
+      if (this.liked) {
+        await likeRef.delete();
+      } else {
+        await likeRef.set({});
+      }
     },
 
     startComment() {

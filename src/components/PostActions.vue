@@ -1,7 +1,8 @@
 <template>
   <div class="PostActions">
     <button @click="$emit('like')">
-      <img src="@assets/icons/heart.svg" alt="Like" />
+      <img v-if="liked" src="@assets/icons/heart-red.svg" alt="Like" />
+      <img v-else src="@assets/icons/heart.svg" alt="Like" />
       Like
     </button>
     <button @click="$emit('comment')">
@@ -17,6 +18,10 @@
 
 <script>
 export default {
+  props: {
+    liked: Boolean,
+  },
+
   emits: ['like', 'comment', 'share'],
 };
 </script>

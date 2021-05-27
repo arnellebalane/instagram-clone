@@ -1,6 +1,12 @@
 <template>
   <div v-if="hasPosts">
-    <Post v-for="post in posts" :key="post.id" :post="post" :comments="post.latestComments" />
+    <Post
+      v-for="post in posts"
+      :key="post.id"
+      :post="post"
+      :comments="post.latestComments"
+      :liked="isLikedPost(post)"
+    />
   </div>
   <p v-else>No posts available</p>
 </template>
@@ -18,11 +24,21 @@ export default {
       type: Array,
       required: true,
     },
+    likedPosts: {
+      type: Object,
+      required: true,
+    },
   },
 
   computed: {
     hasPosts() {
       return this.posts.length > 0;
+    },
+  },
+
+  methods: {
+    isLikedPost(post) {
+      return post.id in this.likedPosts;
     },
   },
 };

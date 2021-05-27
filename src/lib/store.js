@@ -2,6 +2,7 @@ import { createStore } from 'vuex';
 
 const state = {
   currentUser: null,
+  currentUserLikes: {},
   error: null,
 };
 
@@ -18,6 +19,13 @@ const getters = {
 const mutations = {
   setCurrentUser(state, user) {
     state.currentUser = user;
+  },
+
+  setCurrentUserLikes(state, likes) {
+    state.currentUserLikes = likes.reduce((obj, like) => {
+      obj[like.id] = true;
+      return obj;
+    }, {});
   },
 
   setError(state, message) {
