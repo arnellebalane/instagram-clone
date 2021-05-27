@@ -9,6 +9,17 @@ const functions = require('firebase-functions');
 admin.initializeApp();
 const db = admin.firestore();
 
+exports.createUserProfile = functions.auth.user().onCreate((user) => {
+  return db.doc(`users/${user.uid}`).set({
+    displayName: user.displayName,
+    photoURL: user.photoURL,
+    description: 'Hello world!',
+    postsCount: 0,
+    followersCount: 0,
+    followingCount: 0,
+  });
+});
+
 exports.amendNewPostData = functions.firestore.document('posts/{post}').onCreate((change) => {
   return change.ref.update({
     likesCount: 0,
