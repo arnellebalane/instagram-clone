@@ -48,3 +48,27 @@ exports.updatePostCommentsData = functions.firestore.document('posts/{post}/comm
     });
   });
 });
+
+exports.updatePostLikesOnLike = functions.firestore
+  .document('users/{user}/likes/{post}')
+  .onCreate((change, context) => {
+    return db.runTransaction(async (t) => {
+      const postRef = db.doc(`posts/${context.params.post}`);
+      const post = await t.get(postRef);
+      t.update(postRef, {
+        likesCount: post.data().likesCount + 1,
+      });
+    });
+  });
+
+exports.updatePostLikesOnUnlike = functions.firestore
+  .document('users/{user}/likes/{post}')
+  .onDelete((change, context) => {
+    return db.runTransaction(async (t) => {
+      const postRef = db.doc(`posts/${context.params.post}`);
+      const post = await t.get(postRef);
+      t.update(postRef, {
+        likesCount: post.data().likesCount - 1,
+      });
+    });
+  });
