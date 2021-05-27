@@ -1,6 +1,6 @@
 <template>
   <div class="Feed">
-    <Post v-for="post in posts" :key="post.id" :post="post" />
+    <Post v-for="post in posts" :key="post.id" :post="post" :comments="post.latestComments" />
   </div>
 </template>
 

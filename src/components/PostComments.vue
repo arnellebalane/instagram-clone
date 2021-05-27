@@ -23,11 +23,9 @@ export default {
       type: Object,
       required: true,
     },
-  },
-
-  computed: {
-    comments() {
-      return this.post.latestComments || [];
+    comments: {
+      type: Array,
+      required: true,
     },
   },
 };
