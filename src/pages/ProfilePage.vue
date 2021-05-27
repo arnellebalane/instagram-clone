@@ -43,14 +43,20 @@ export default {
   },
 
   mounted() {
-    this.unsubscribeUser = db.doc(`users/${this.$route.params.id}`).onSnapshot((doc) => {
-      this.user = { ...doc.data(), id: doc.id };
-      this.userLoading = false;
+    const userId = this.$route.params.id;
+
+    this.unsubscribeUser = db.doc(`users/${userId}`).onSnapshot((doc) => {
+      if (doc.exists) {
+        this.user = { ...doc.data(), id: doc.id };
+        this.userLoading = false;
+      } else {
+        this.$router.push({ name: 'not-found' });
+      }
     });
 
     this.unsubscribePosts = db
       .collection('posts')
-      .where('author.id', '==', this.$route.params.id)
+      .where('author.id', '==', userId)
       .orderBy('datePosted', 'desc')
       .onSnapshot((snapshot) => {
         this.posts = snapshot.docs

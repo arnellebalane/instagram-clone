@@ -5,6 +5,7 @@ import RegisterPage from '@pages/RegisterPage.vue';
 import FeedPage from '@pages/FeedPage.vue';
 import ProfilePage from '@pages/ProfilePage.vue';
 import PostPage from '@pages/PostPage.vue';
+import NotFoundPage from '@pages/NotFoundPage.vue';
 
 function ensureLoggedIn() {
   if (!store.getters.isLoggedIn) {
@@ -44,6 +45,11 @@ const routes = [
     name: 'post',
     component: PostPage,
     beforeEnter: [ensureLoggedIn],
+  },
+  {
+    path: '/not-found',
+    name: 'not-found',
+    component: NotFoundPage,
   },
   {
     path: '/:id',

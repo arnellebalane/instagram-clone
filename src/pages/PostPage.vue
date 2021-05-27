@@ -35,8 +35,12 @@ export default {
 
   mounted() {
     this.unsubscribePost = db.doc(`posts/${this.$route.params.id}`).onSnapshot((doc) => {
-      this.post = { ...doc.data(), id: doc.id };
-      this.postLoading = false;
+      if (doc.exists) {
+        this.post = { ...doc.data(), id: doc.id };
+        this.postLoading = false;
+      } else {
+        this.$router.push({ name: 'not-found' });
+      }
     });
 
     this.unsubscribeComments = db
