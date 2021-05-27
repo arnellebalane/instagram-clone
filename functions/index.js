@@ -20,11 +20,20 @@ exports.createUserProfile = functions.auth.user().onCreate((user) => {
   });
 });
 
-exports.amendNewPostData = functions.firestore.document('posts/{post}').onCreate((change) => {
-  return change.ref.update({
-    likesCount: 0,
-    commentsCount: 0,
-    latestComments: [],
+exports.amendNewPostAndUserData = functions.firestore.document('posts/{post}').onCreate((change) => {
+  return db.runTransaction(async (t) => {
+    const postRef = change.ref;
+    const post = await t.get(postRef);
+    const userRef = db.doc(`users/${post.data().author.id}`);
+    const user = await t.get(userRef);
+    t.update(postRef, {
+      likesCount: 0,
+      commentsCount: 0,
+      latestComments: [],
+    });
+    t.update(userRef, {
+      postsCount: user.data().postsCount + 1,
+    });
   });
 });
 
@@ -33,7 +42,7 @@ exports.updatePostCommentsData = functions.firestore.document('posts/{post}/comm
     const postRef = change.ref.parent.parent;
     const post = await t.get(postRef);
     const comment = await t.get(change.ref);
-    return t.update(postRef, {
+    t.update(postRef, {
       commentsCount: post.data().commentsCount + 1,
       latestComments: post.data().latestComments.concat(comment.data()).slice(-2),
     });
