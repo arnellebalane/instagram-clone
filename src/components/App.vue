@@ -9,7 +9,7 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex';
-import { db } from '@lib/firebase';
+import { auth, db } from '@lib/firebase';
 import AppHeader from '@components/AppHeader.vue';
 import AppError from '@components/AppError.vue';
 import LoginPage from '@pages/LoginPage.vue';
@@ -27,14 +27,22 @@ export default {
   },
 
   mounted() {
-    this.unsubscribeLikes = db.collection(`users/${this.currentUser.uid}/likes`).onSnapshot((snapshot) => {
-      const likes = snapshot.docs.map((doc) => ({ id: doc.id }));
-      this.$store.commit('setCurrentUserLikes', likes);
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        this.unsubscribeLikes = db.collection(`users/${this.currentUser.uid}/likes`).onSnapshot((snapshot) => {
+          const likes = snapshot.docs.map((doc) => ({ id: doc.id }));
+          this.$store.commit('setCurrentUserLikes', likes);
+        });
+      } else if (this.unsubscribeLikes) {
+        this.unsubscribeLikes();
+      }
     });
   },
 
   unmounted() {
-    this.unsubscribeLikes();
+    if (this.unsubscribeLikes) {
+      this.unsubscribeLikes();
+    }
   },
 };
 </script>

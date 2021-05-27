@@ -4,7 +4,7 @@
       v-for="post in posts"
       :key="post.id"
       :post="post"
-      :comments="post.latestComments"
+      :comments="post.latestComments || []"
       :liked="isLikedPost(post)"
     />
   </div>
