@@ -1,7 +1,15 @@
 <template>
   <form @submit.prevent="submitForm">
     <img :src="currentUserPhotoURL" :alt="currentUser?.displayName" />
-    <input type="text" name="comment" placeholder="Add a comment..." :disabled="isLoading" v-model="comment" required />
+    <input
+      type="text"
+      name="comment"
+      placeholder="Add a comment..."
+      ref="commentInput"
+      v-model="comment"
+      :disabled="isLoading"
+      required
+    />
     <button :disabled="isLoading || !isFormValid">Post</button>
   </form>
 </template>
@@ -39,6 +47,10 @@ export default {
   },
 
   methods: {
+    focusForm() {
+      this.$refs.commentInput.focus();
+    },
+
     clearForm() {
       this.comment = '';
     },

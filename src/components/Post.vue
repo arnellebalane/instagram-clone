@@ -6,7 +6,7 @@
     <PostStats :post="post" />
     <PostComments :post="post" :comments="comments" />
     <PostDate :post="post" />
-    <PostNewCommentForm :post="post" />
+    <PostNewCommentForm :post="post" ref="postNewCommentForm" />
   </article>
 </template>
 
@@ -57,7 +57,7 @@ export default {
     },
 
     startComment() {
-      console.log('comment', { id: this.post.id });
+      this.$refs.postNewCommentForm.focusForm();
     },
 
     sharePost() {
