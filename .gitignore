@@ -3,3 +3,4 @@ dist
 .firebase
 *.local
 *-debug.log
+service-account.json
