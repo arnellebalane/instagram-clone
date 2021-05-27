@@ -1,7 +1,9 @@
 <template>
   <div class="FeedPage">
     <NewPostForm />
-    <Feed :posts="posts" />
+
+    <FeedLoading v-if="postsLoading" />
+    <Feed v-else :posts="posts" />
   </div>
 </template>
 
@@ -9,16 +11,19 @@
 import { db } from '@lib/firebase';
 import NewPostForm from '@components/NewPostForm.vue';
 import Feed from '@components/Feed.vue';
+import FeedLoading from '@components/FeedLoading.vue';
 
 export default {
   components: {
     NewPostForm,
     Feed,
+    FeedLoading,
   },
 
   data() {
     return {
       posts: [],
+      postsLoading: true,
     };
   },
 
@@ -30,6 +35,7 @@ export default {
         this.posts = snapshot.docs
           .filter((doc) => !doc.metadata.hasPendingWrites)
           .map((doc) => ({ ...doc.data(), id: doc.id }));
+        this.postsLoading = false;
       });
   },
 

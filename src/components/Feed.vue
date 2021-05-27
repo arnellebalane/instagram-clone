@@ -1,7 +1,8 @@
 <template>
-  <div class="Feed">
+  <div v-if="hasPosts">
     <Post v-for="post in posts" :key="post.id" :post="post" :comments="post.latestComments" />
   </div>
+  <p v-else>No posts available</p>
 </template>
 
 <script>
@@ -18,6 +19,12 @@ export default {
       required: true,
     },
   },
+
+  computed: {
+    hasPosts() {
+      return this.posts.length > 0;
+    },
+  },
 };
 </script>
 
@@ -27,5 +34,14 @@ div {
   flex-direction: column;
   gap: 6.4rem;
   padding-bottom: 10rem;
+}
+
+p {
+  padding: 3.6rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-align: center;
+  text-transform: uppercase;
+  color: var(--gray-400);
 }
 </style>
