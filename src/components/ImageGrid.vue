@@ -1,7 +1,8 @@
 <template>
-  <div>
+  <div v-if="hasPosts">
     <ImageGridItem v-for="post in posts" :key="post.id" :post="post" />
   </div>
+  <p v-else>No posts available</p>
 </template>
 
 <script>
@@ -18,6 +19,12 @@ export default {
       required: true,
     },
   },
+
+  computed: {
+    hasPosts() {
+      return this.posts.length > 0;
+    },
+  },
 };
 </script>
 
@@ -27,5 +34,14 @@ div {
   grid-template-columns: repeat(3, 1fr);
   gap: 4px;
   cursor: pointer;
+}
+
+p {
+  padding: 3.6rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-align: center;
+  text-transform: uppercase;
+  color: var(--gray-400);
 }
 </style>
