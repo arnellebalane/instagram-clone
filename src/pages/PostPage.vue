@@ -1,11 +1,12 @@
 <template>
   <div class="PostPage">
     <PostLoading v-if="postLoading" />
-    <Post v-else :post="post" :comments="comments" />
+    <Post v-else :post="post" :comments="comments" :liked="isLikedPost" />
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import { db } from '@lib/firebase';
 import Post from '@components/Post.vue';
 import PostLoading from '@components/PostLoading.vue';
@@ -22,6 +23,14 @@ export default {
       comments: [],
       postLoading: true,
     };
+  },
+
+  computed: {
+    ...mapState(['currentUserLikes']),
+
+    isLikedPost() {
+      return this.post?.id in this.currentUserLikes;
+    },
   },
 
   mounted() {
