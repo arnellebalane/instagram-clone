@@ -1,28 +1,33 @@
 <template>
   <div class="PostPage">
-    <Post v-if="post" :post="post" :comments="comments" />
+    <PostLoading v-if="postLoading" />
+    <Post v-else :post="post" :comments="comments" />
   </div>
 </template>
 
 <script>
 import { db } from '@lib/firebase';
 import Post from '@components/Post.vue';
+import PostLoading from '@components/PostLoading.vue';
 
 export default {
   components: {
     Post,
+    PostLoading,
   },
 
   data() {
     return {
       post: null,
       comments: [],
+      postLoading: true,
     };
   },
 
   mounted() {
     this.unsubscribePost = db.doc(`posts/${this.$route.params.id}`).onSnapshot((doc) => {
       this.post = { ...doc.data(), id: doc.id };
+      this.postLoading = false;
     });
 
     this.unsubscribeComments = db
