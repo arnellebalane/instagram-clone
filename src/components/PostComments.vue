@@ -1,14 +1,18 @@
 <template>
   <div class="PostComments">
     <p>
-      <RouterLink :to="{ name: 'profile', params: { id: post.author.id } }">
+      <RouterLink class="AuthorName" :to="{ name: 'profile', params: { id: post.author.id } }">
         {{ post.author.displayName }}
       </RouterLink>
       {{ post.caption }}
     </p>
 
+    <RouterLink class="ViewAllComments" v-if="hasMoreComments" :to="{ name: 'post', params: { id: post.id } }">
+      View all {{ post.commentsCount }} comments
+    </RouterLink>
+
     <p v-for="comment in comments" :key="comment.id">
-      <RouterLink :to="{ name: 'profile', params: { id: comment.author.id } }">
+      <RouterLink class="AuthorName" :to="{ name: 'profile', params: { id: comment.author.id } }">
         {{ comment.author.displayName }}
       </RouterLink>
       {{ comment.body }}
@@ -28,6 +32,12 @@ export default {
       required: true,
     },
   },
+
+  computed: {
+    hasMoreComments() {
+      return this.post.commentsCount > (this.post.latestComments?.length || 0);
+    },
+  },
 };
 </script>
 
@@ -39,7 +49,11 @@ div {
   padding: 0 1.6rem;
 }
 
-a {
+.ViewAllComments {
+  color: var(--gray-500);
+}
+
+.AuthorName {
   font-weight: 700;
 }
 </style>
