@@ -43,21 +43,25 @@ export default {
   methods: {
     async loginWithEmail(data) {
       this.isLoading = true;
+      this.$store.commit('clearError');
       try {
         await auth.signInWithEmailAndPassword(data.email, data.password);
       } catch (error) {
         console.error(error);
+        this.$store.commit('setError', error.message);
       }
       this.isLoading = false;
     },
 
     async loginWithGoogle() {
       this.isLoading = true;
+      this.$store.commit('clearError');
       try {
         const provider = new firebase.auth.GoogleAuthProvider();
         await auth.signInWithPopup(provider);
       } catch (error) {
         console.error(error);
+        this.$store.commit('setError', error.message);
       }
       this.isLoading = false;
     },
