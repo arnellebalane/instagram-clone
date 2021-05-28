@@ -1,5 +1,5 @@
 <template>
-  <button v-bind="$attrs">
+  <button :class="{ filled }" v-bind="$attrs">
     <svg viewBox="0 0 24 24">
       <path
         fill="currentColor"
@@ -12,6 +12,14 @@
     Login with Google
   </button>
 </template>
+
+<script>
+export default {
+  props: {
+    filled: Boolean,
+  },
+};
+</script>
 
 <style scoped>
 button {
@@ -27,6 +35,11 @@ button {
   color: var(--gray-700);
   background: none;
   cursor: pointer;
+}
+
+button.filled {
+  color: var(--white);
+  background-color: var(--primary);
 }
 
 svg {
