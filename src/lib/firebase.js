@@ -18,3 +18,10 @@ export const auth = firebase.auth();
 export const db = firebase.firestore();
 export const storage = firebase.storage();
 export const functions = firebase.functions();
+
+if (import.meta.env.VITE_USE_EMULATORS === 'true') {
+  auth.useEmulator('http://localhost:9099');
+  db.useEmulator('localhost', 8080);
+  storage.useEmulator('localhost', 9199);
+  functions.useEmulator('localhost', 5001);
+}
