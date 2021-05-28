@@ -14,6 +14,8 @@
 
 <script>
 import { mapState } from 'vuex';
+import * as uuid from 'uuid';
+import firebase, { storage, db } from '@lib/firebase';
 import FilePicker from '@components/FilePicker.vue';
 import defaultPhoto from '@assets/images/default-photo.jpg';
 
@@ -57,8 +59,78 @@ export default {
       this.$refs.filePicker.clearFile();
     },
 
-    submitForm() {
-      console.log(this.caption, this.file);
+    async submitForm() {
+      const [successfulUploadPhoto, photoRef] = await this.uploadPhoto(this.file);
+      if (!successfulUploadPhoto) {
+        console.error(photoRef);
+        return;
+      }
+
+      const postData = {
+        caption: this.caption,
+        photoURL: await photoRef.getDownloadURL(),
+      };
+      const [successfulCreatePost, postRef] = await this.createPost(postData);
+      if (!successfulCreatePost) {
+        console.error(postRef);
+        await this.deletePhoto(photoRef);
+        return;
+      }
+
+      this.clearForm();
+    },
+
+    async uploadPhoto(file) {
+      const fileName = uuid.v4().replace(/-/g, '');
+      const fileType = file.type.split('/')[1];
+      const photoRef = storage.ref(`photos/${this.currentUser.uid}/${fileName}.${fileType}`);
+      try {
+        await photoRef.put(file);
+        return [true, photoRef];
+      } catch (error) {
+        console.error(error);
+        return [false, error];
+      }
+    },
+
+    async createPost(data) {
+      const postRef = db.collection('posts').doc();
+      const userRef = db.doc(`users/${this.currentUser.uid}`);
+      try {
+        await db.runTransaction(async (t) => {
+          const user = await t.get(userRef);
+          t.set(postRef, {
+            caption: data.caption,
+            photoURL: data.photoURL,
+            datePosted: firebase.firestore.FieldValue.serverTimestamp(),
+            likesCount: 0,
+            commentsCount: 0,
+            latestComments: [],
+            author: {
+              id: this.currentUser.uid,
+              displayName: this.currentUser.displayName,
+              photoURL: this.currentUser.photoURL,
+            },
+          });
+          t.update(userRef, {
+            postsCount: user.data().postsCount + 1,
+          });
+        });
+        return [true, postRef];
+      } catch (error) {
+        console.error(error);
+        return [false, error];
+      }
+    },
+
+    async deletePhoto(photoRef) {
+      try {
+        await photoRef.delete();
+        return [true, photoRef];
+      } catch (error) {
+        console.error(error);
+        return [false, error];
+      }
     },
   },
 };
