@@ -1,6 +1,6 @@
 <template>
   <div class="Wrapper">
-    <h1>Hello Vue!</h1>
+    <RouterView />
   </div>
 </template>
 
