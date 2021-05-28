@@ -30,8 +30,9 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 50rem;
+  max-width: 54rem;
   height: 5rem;
+  padding: 0 2.4rem;
   margin: 0 auto;
 }
 

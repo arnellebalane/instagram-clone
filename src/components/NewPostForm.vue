@@ -151,6 +151,7 @@ form {
 
 input[type='text'] {
   flex-grow: 1;
+  width: 0;
   padding: 8px;
   border: none;
   line-height: 1.6rem;
