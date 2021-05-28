@@ -1,5 +1,21 @@
 <template>
   <div class="FeedPage">
-    <h1>FeedPage</h1>
+    <NewPostForm />
   </div>
 </template>
+
+<script>
+import NewPostForm from '@components/NewPostForm.vue';
+
+export default {
+  components: {
+    NewPostForm,
+  },
+};
+</script>
+
+<style scoped>
+.NewPostForm {
+  margin-bottom: 2.4rem;
+}
+</style>
