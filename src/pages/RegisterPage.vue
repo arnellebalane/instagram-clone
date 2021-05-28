@@ -19,6 +19,7 @@
 </template>
 
 <script>
+import firebase, { auth } from '@lib/firebase';
 import AuthCard from '@components/AuthCard.vue';
 import AuthButton from '@components/AuthButton.vue';
 import AuthSeparator from '@components/AuthSeparator.vue';
@@ -35,12 +36,22 @@ export default {
   },
 
   methods: {
-    registerWithEmail(data) {
-      console.log(data);
+    async registerWithEmail(data) {
+      try {
+        const credential = await auth.createUserWithEmailAndPassword(data.email, data.password);
+        await credential.user.updateProfile({ displayName: data.name });
+      } catch (error) {
+        console.error(error);
+      }
     },
 
-    registerWithGoogle() {
-      console.log('register with google');
+    async registerWithGoogle() {
+      try {
+        const provider = new firebase.auth.GoogleAuthProvider();
+        await auth.signInWithPopup(provider);
+      } catch (error) {
+        console.log(error);
+      }
     },
   },
 };
