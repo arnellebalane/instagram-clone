@@ -19,7 +19,9 @@
   "homepage": "https://github.com/arnellebalane/instagram-clone#readme",
   "dependencies": {
     "dayjs": "^1.10.4",
+    "dotenv": "^10.0.0",
     "firebase": "^8.6.2",
+    "firebase-admin": "^9.9.0",
     "vue": "^3.0.11",
     "vue-router": "^4.0.8",
     "vuex": "^4.0.1"
@@ -27,8 +29,6 @@
   "devDependencies": {
     "@vitejs/plugin-vue": "^1.2.2",
     "@vue/compiler-sfc": "^3.0.11",
-    "dotenv": "^10.0.0",
-    "firebase-admin": "^9.9.0",
     "vite": "^2.3.4"
   }
 }
