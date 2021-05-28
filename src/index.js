@@ -4,17 +4,17 @@ import store from '@lib/store';
 import { auth } from '@lib/firebase';
 import App from '@components/App.vue';
 
+let app;
+
 auth.onAuthStateChanged((user) => {
   store.commit('setCurrentUser', user);
 
-  if (user) {
-    router.push({ name: 'feed' });
+  if (app) {
+    router.push({ name: user ? 'feed' : 'login' });
   } else {
-    router.push({ name: 'login' });
+    app = createApp(App);
+    app.use(router);
+    app.use(store);
+    app.mount('#app');
   }
 });
-
-const app = createApp(App);
-app.use(router);
-app.use(store);
-app.mount('#app');
