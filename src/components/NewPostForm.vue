@@ -23,7 +23,8 @@
 
 <script>
 import { mapState } from 'vuex';
-import firebase, { db, storage } from '@lib/firebase';
+import * as uuid from 'uuid';
+import { storage, functions } from '@lib/firebase';
 import FilePicker from '@components/FilePicker.vue';
 import defaultPhoto from '@assets/images/default-photo.jpg';
 
@@ -72,53 +73,35 @@ export default {
       this.isLoading = true;
       this.$store.commit('clearError');
 
-      const postRef = db.collection('posts').doc();
-      const [successfulPhotoUpload, photoRef] = await this.uploadPhoto(postRef.id, this.file);
-      if (!successfulPhotoUpload) {
-        this.$store.commit('setError', 'Failed to upload the photo. Please try again.');
+      const [successfulUploadPhoto, photoRef] = await this.uploadPhoto(this.file);
+      if (!successfulUploadPhoto) {
+        this.$store.commit('setError', 'Failed to upload photo. Please try again.');
         this.isLoading = false;
         return;
       }
 
-      const data = { caption: this.caption };
-      const [successfulSavePost] = await this.savePost(postRef, photoRef, data);
-      if (!successfulSavePost) {
+      try {
+        await functions.httpsCallable('createPost')({
+          caption: this.caption,
+          photoURL: await photoRef.getDownloadURL(),
+        });
+        this.clearForm();
+      } catch (error) {
+        console.error(error);
         this.$store.commit('setError', 'Failed to save post. Please try again.');
         await this.deletePhoto(photoRef);
-        this.isLoading = false;
-        return;
       }
 
-      this.clearForm();
       this.isLoading = false;
     },
 
-    async uploadPhoto(fileName, file) {
-      const photoType = file.type.split('/')[1];
-      const photoRef = storage.ref(`photos/${this.currentUser.uid}/${fileName}.${photoType}`);
+    async uploadPhoto(file) {
+      const fileName = uuid.v4().replace(/-/g, '');
+      const fileType = file.type.split('/')[1];
+      const photoRef = storage.ref(`photos/${this.currentUser.uid}/${fileName}.${fileType}`);
       try {
         await photoRef.put(file);
         return [true, photoRef];
-      } catch (error) {
-        console.error(error);
-        return [false, error];
-      }
-    },
-
-    async savePost(postRef, photoRef, data) {
-      try {
-        const postData = {
-          caption: data.caption,
-          photoURL: await photoRef.getDownloadURL(),
-          datePosted: firebase.firestore.FieldValue.serverTimestamp(),
-          author: {
-            id: this.currentUser.uid,
-            displayName: this.currentUser.displayName,
-            photoURL: this.currentUser.photoURL,
-          },
-        };
-        await postRef.set(postData);
-        return [true, postRef];
       } catch (error) {
         console.error(error);
         return [false, error];

@@ -20,17 +20,25 @@ exports.createUserProfile = functions.auth.user().onCreate((user) => {
   });
 });
 
-exports.amendNewPostAndUserData = functions.firestore.document('posts/{post}').onCreate((change) => {
+exports.createPost = functions.https.onCall((data, context) => {
   return db.runTransaction(async (t) => {
-    const postRef = change.ref;
-    const post = await t.get(postRef);
-    const userRef = db.doc(`users/${post.data().author.id}`);
-    const user = await t.get(userRef);
-    t.update(postRef, {
+    const postRef = db.collection('posts').doc();
+    const userRef = db.doc(`users/${context.auth.uid}`);
+    const post = {
+      caption: data.caption,
+      photoURL: data.photoURL,
+      datePosted: new Date(),
       likesCount: 0,
       commentsCount: 0,
       latestComments: [],
-    });
+      author: {
+        id: context.auth.uid,
+        displayName: context.auth.token.name,
+        photoURL: context.auth.token.picture,
+      },
+    };
+    const user = await t.get(userRef);
+    t.set(postRef, post);
     t.update(userRef, {
       postsCount: user.data().postsCount + 1,
     });
@@ -41,7 +49,6 @@ exports.createComment = functions.https.onCall((data, context) => {
   return db.runTransaction(async (t) => {
     const postRef = db.doc(`posts/${data.postId}`);
     const commentRef = postRef.collection('comments').doc();
-    const post = await t.get(postRef);
     const comment = {
       body: data.body,
       datePosted: new Date(),
@@ -50,6 +57,7 @@ exports.createComment = functions.https.onCall((data, context) => {
         displayName: context.auth.token.name,
       },
     };
+    const post = await t.get(postRef);
     t.set(commentRef, comment);
     t.update(postRef, {
       commentsCount: post.data().commentsCount + 1,
