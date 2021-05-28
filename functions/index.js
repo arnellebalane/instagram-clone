@@ -49,26 +49,26 @@ exports.updatePostCommentsData = functions.firestore.document('posts/{post}/comm
   });
 });
 
-exports.updatePostLikesOnLike = functions.firestore
-  .document('users/{user}/likes/{post}')
-  .onCreate((change, context) => {
-    return db.runTransaction(async (t) => {
-      const postRef = db.doc(`posts/${context.params.post}`);
-      const post = await t.get(postRef);
-      t.update(postRef, {
-        likesCount: post.data().likesCount + 1,
-      });
+exports.likePost = functions.https.onCall((data, context) => {
+  return db.runTransaction(async (t) => {
+    const likeRef = db.doc(`users/${context.auth.uid}/likes/${data.id}`);
+    const postRef = db.doc(`posts/${data.id}`);
+    const post = await t.get(postRef);
+    t.set(likeRef, {});
+    t.update(postRef, {
+      likesCount: post.data().likesCount + 1,
     });
   });
+});
 
-exports.updatePostLikesOnUnlike = functions.firestore
-  .document('users/{user}/likes/{post}')
-  .onDelete((change, context) => {
-    return db.runTransaction(async (t) => {
-      const postRef = db.doc(`posts/${context.params.post}`);
-      const post = await t.get(postRef);
-      t.update(postRef, {
-        likesCount: post.data().likesCount - 1,
-      });
+exports.unlikePost = functions.https.onCall((data, context) => {
+  return db.runTransaction(async (t) => {
+    const likeRef = db.doc(`users/${context.auth.uid}/likes/${data.id}`);
+    const postRef = db.doc(`posts/${data.id}`);
+    const post = await t.get(postRef);
+    t.delete(likeRef);
+    t.update(postRef, {
+      likesCount: post.data().likesCount - 1,
     });
   });
+});

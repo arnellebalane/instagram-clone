@@ -12,7 +12,7 @@
 
 <script>
 import { mapState } from 'vuex';
-import { db } from '@lib/firebase';
+import { functions } from '@lib/firebase';
 import PostHeader from '@components/PostHeader.vue';
 import PostImage from '@components/PostImage.vue';
 import PostActions from '@components/PostActions.vue';
@@ -48,11 +48,10 @@ export default {
 
   methods: {
     async likePost() {
-      const likeRef = db.doc(`users/${this.currentUser.uid}/likes/${this.post.id}`);
       if (this.liked) {
-        await likeRef.delete();
+        functions.httpsCallable('unlikePost')({ id: this.post.id });
       } else {
-        await likeRef.set({});
+        functions.httpsCallable('likePost')({ id: this.post.id });
       }
     },
 
