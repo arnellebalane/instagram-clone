@@ -2,7 +2,14 @@
   <article>
     <PostHeader :post="post" />
     <PostImage :post="post" />
-    <PostActions :post="post" :liked="liked" @like="likePost" @comment="startComment" @share="sharePost" />
+    <PostActions
+      :post="post"
+      :liked="liked"
+      :disabled="isLoading"
+      @like="likePost"
+      @comment="startComment"
+      @share="sharePost"
+    />
     <PostStats :post="post" />
     <PostComments :post="post" :comments="comments" />
     <PostDate :post="post" />
@@ -44,6 +51,12 @@ export default {
     liked: Boolean,
   },
 
+  data() {
+    return {
+      isLoading: false,
+    };
+  },
+
   computed: mapState(['currentUser']),
 
   methods: {
@@ -53,13 +66,15 @@ export default {
         ? 'Failed to unlike post. Please try again'
         : 'Failed to like post. Please try again';
 
+      this.isLoading = true;
       this.$store.commit('clearError');
       try {
-        functions.httpsCallable(callableFunction)({ postId: this.post.id });
+        await functions.httpsCallable(callableFunction)({ postId: this.post.id });
       } catch (error) {
         console.error(error);
         this.$store.commit('setError', failureMessage);
       }
+      this.isLoading = false;
     },
 
     startComment() {

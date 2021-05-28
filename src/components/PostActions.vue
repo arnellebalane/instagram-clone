@@ -1,6 +1,6 @@
 <template>
   <div class="PostActions">
-    <button @click="$emit('like')">
+    <button :disabled="disabled" @click="$emit('like')">
       <img v-if="liked" src="@assets/icons/heart-red.svg" alt="Like" />
       <img v-else src="@assets/icons/heart.svg" alt="Like" />
       Like
@@ -20,6 +20,7 @@
 export default {
   props: {
     liked: Boolean,
+    disabled: Boolean,
   },
 
   emits: ['like', 'comment', 'share'],
