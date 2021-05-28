@@ -1,4 +1,5 @@
 <template>
+  <AppHeader v-if="isLoggedIn" />
   <AppError v-if="hasError">{{ error }}</AppError>
 
   <div class="Wrapper">
@@ -8,16 +9,18 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex';
+import AppHeader from '@components/AppHeader.vue';
 import AppError from '@components/AppError.vue';
 
 export default {
   components: {
+    AppHeader,
     AppError,
   },
 
   computed: {
     ...mapState(['error']),
-    ...mapGetters(['hasError']),
+    ...mapGetters(['isLoggedIn', 'hasError']),
   },
 };
 </script>
@@ -31,6 +34,14 @@ export default {
   min-height: 100vh;
   padding: 7.4rem 2.4rem;
   margin: 0 auto;
+}
+
+.AppHeader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  width: 100%;
 }
 
 .AppError {
