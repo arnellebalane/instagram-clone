@@ -1,9 +1,16 @@
-const functions = require("firebase-functions");
+const admin = require('firebase-admin');
+const functions = require('firebase-functions');
 
-// // Create and Deploy Your First Cloud Functions
-// // https://firebase.google.com/docs/functions/write-firebase-functions
-//
-// exports.helloWorld = functions.https.onRequest((request, response) => {
-//   functions.logger.info("Hello logs!", {structuredData: true});
-//   response.send("Hello from Firebase!");
-// });
+admin.initializeApp();
+const db = admin.firestore();
+
+exports.createUserProfile = functions.auth.user().onCreate((user) => {
+  return db.doc(`users/${user.uid}`).set({
+    displayName: user.displayName,
+    photoURL: user.photoURL,
+    description: 'Hello world!',
+    postsCount: 0,
+    followersCount: 0,
+    followingCount: 0,
+  });
+});
