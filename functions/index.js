@@ -37,14 +37,23 @@ exports.amendNewPostAndUserData = functions.firestore.document('posts/{post}').o
   });
 });
 
-exports.updatePostCommentsData = functions.firestore.document('posts/{post}/comments/{comment}').onCreate((change) => {
+exports.createComment = functions.https.onCall((data, context) => {
   return db.runTransaction(async (t) => {
-    const postRef = change.ref.parent.parent;
+    const postRef = db.doc(`posts/${data.postId}`);
+    const commentRef = postRef.collection('comments').doc();
     const post = await t.get(postRef);
-    const comment = await t.get(change.ref);
+    const comment = {
+      body: data.body,
+      datePosted: new Date(),
+      author: {
+        id: context.auth.uid,
+        displayName: context.auth.token.name,
+      },
+    };
+    t.set(commentRef, comment);
     t.update(postRef, {
       commentsCount: post.data().commentsCount + 1,
-      latestComments: post.data().latestComments.concat(comment.data()).slice(-2),
+      latestComments: post.data().latestComments.concat(comment).slice(-2),
     });
   });
 });

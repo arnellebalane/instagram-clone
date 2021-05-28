@@ -16,7 +16,7 @@
 
 <script>
 import { mapState } from 'vuex';
-import firebase, { db } from '@lib/firebase';
+import { functions } from '@lib/firebase';
 import defaultPhoto from '@assets/images/default-photo.jpg';
 
 export default {
@@ -60,13 +60,9 @@ export default {
       this.$store.commit('clearError');
 
       try {
-        await db.collection(`posts/${this.post.id}/comments`).add({
+        await functions.httpsCallable('createComment')({
+          postId: this.post.id,
           body: this.comment,
-          datePosted: firebase.firestore.FieldValue.serverTimestamp(),
-          author: {
-            id: this.currentUser.uid,
-            displayName: this.currentUser.displayName,
-          },
         });
         this.clearForm();
       } catch (error) {
