@@ -3,9 +3,9 @@
     <AuthCard>
       <img src="@assets/images/logo.png" alt="Instagram logo" />
 
-      <LoginForm @submit="loginWithEmail" />
+      <LoginForm :disabled="isLoading" @submit="loginWithEmail" />
       <AuthSeparator />
-      <AuthButton @click="loginWithGoogle" />
+      <AuthButton :disabled="isLoading" @click="loginWithGoogle" />
     </AuthCard>
 
     <AuthFooter>
@@ -34,22 +34,32 @@ export default {
     AuthFooter,
   },
 
+  data() {
+    return {
+      isLoading: false,
+    };
+  },
+
   methods: {
     async loginWithEmail(data) {
+      this.isLoading = true;
       try {
         await auth.signInWithEmailAndPassword(data.email, data.password);
       } catch (error) {
         console.error(error);
       }
+      this.isLoading = false;
     },
 
     async loginWithGoogle() {
+      this.isLoading = true;
       try {
         const provider = new firebase.auth.GoogleAuthProvider();
         await auth.signInWithPopup(provider);
       } catch (error) {
         console.error(error);
       }
+      this.isLoading = false;
     },
   },
 };

@@ -4,9 +4,9 @@
       <img src="@assets/images/logo.png" alt="Instagram logo" />
       <p>Register to see photos and videos from your friends</p>
 
-      <AuthButton filled @click="registerWithGoogle" />
+      <AuthButton filled :disabled="isLoading" @click="registerWithGoogle" />
       <AuthSeparator />
-      <RegisterForm @submit="registerWithEmail" />
+      <RegisterForm :disabled="isLoading" @submit="registerWithEmail" />
     </AuthCard>
 
     <AuthFooter>
@@ -35,23 +35,33 @@ export default {
     RegisterForm,
   },
 
+  data() {
+    return {
+      isLoading: false,
+    };
+  },
+
   methods: {
     async registerWithEmail(data) {
+      this.isLoading = true;
       try {
         const credential = await auth.createUserWithEmailAndPassword(data.email, data.password);
         await credential.user.updateProfile({ displayName: data.name });
       } catch (error) {
         console.error(error);
       }
+      this.isLoading = false;
     },
 
     async registerWithGoogle() {
+      this.isLoading = true;
       try {
         const provider = new firebase.auth.GoogleAuthProvider();
         await auth.signInWithPopup(provider);
       } catch (error) {
         console.log(error);
       }
+      this.isLoading = false;
     },
   },
 };
