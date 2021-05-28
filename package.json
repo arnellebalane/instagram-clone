@@ -2,7 +2,10 @@
   "name": "instagram-clone",
   "version": "1.0.0",
   "description": "",
-  "scripts": {},
+  "scripts": {
+    "serve": "vite",
+    "build": "vite build"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/arnellebalane/instagram-clone.git"

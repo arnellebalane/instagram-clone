@@ -66,6 +66,4 @@ git checkout 03-setup-build-tools
 ---
 
 - [**Return to previous step**](02-setup-vue-project.md)
-  <<<<<<< HEAD
-- # [**Proceed to next step**](04-setup-routing.md)
-  > > > > > > > 88d197e (Setup Vue project)
+- [**Proceed to next step**](04-setup-routing.md)
