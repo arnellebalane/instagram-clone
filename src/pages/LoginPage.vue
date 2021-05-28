@@ -18,6 +18,7 @@
 </template>
 
 <script>
+import firebase, { auth } from '@lib/firebase';
 import AuthCard from '@components/AuthCard.vue';
 import AuthSeparator from '@components/AuthSeparator.vue';
 import AuthButton from '@components/AuthButton.vue';
@@ -34,12 +35,21 @@ export default {
   },
 
   methods: {
-    loginWithEmail(data) {
-      console.log(data);
+    async loginWithEmail(data) {
+      try {
+        await auth.signInWithEmailAndPassword(data.email, data.password);
+      } catch (error) {
+        console.error(error);
+      }
     },
 
-    loginWithGoogle() {
-      console.log('login with google');
+    async loginWithGoogle() {
+      try {
+        const provider = new firebase.auth.GoogleAuthProvider();
+        await auth.signInWithPopup(provider);
+      } catch (error) {
+        console.error(error);
+      }
     },
   },
 };
