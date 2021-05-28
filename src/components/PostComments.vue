@@ -35,7 +35,7 @@ export default {
 
   computed: {
     hasMoreComments() {
-      return this.post.commentsCount > (this.post.latestComments?.length || 0);
+      return this.post.commentsCount > this.comments.length;
     },
   },
 };
