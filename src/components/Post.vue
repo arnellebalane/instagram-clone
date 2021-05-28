@@ -55,7 +55,7 @@ export default {
 
       this.$store.commit('clearError');
       try {
-        functions.httpsCallable(callableFunction)({ id: this.post.id });
+        functions.httpsCallable(callableFunction)({ postId: this.post.id });
       } catch (error) {
         console.error(error);
         this.$store.commit('setError', failureMessage);
