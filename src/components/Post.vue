@@ -48,10 +48,17 @@ export default {
 
   methods: {
     async likePost() {
-      if (this.liked) {
-        functions.httpsCallable('unlikePost')({ id: this.post.id });
-      } else {
-        functions.httpsCallable('likePost')({ id: this.post.id });
+      const callableFunction = this.liked ? 'unlikePost' : 'likePost';
+      const failureMessage = this.liked
+        ? 'Failed to unlike post. Please try again'
+        : 'Failed to like post. Please try again';
+
+      this.$store.commit('clearError');
+      try {
+        functions.httpsCallable(callableFunction)({ id: this.post.id });
+      } catch (error) {
+        console.error(error);
+        this.$store.commit('setError', failureMessage);
       }
     },
 
