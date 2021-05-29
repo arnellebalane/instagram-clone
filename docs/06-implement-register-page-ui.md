@@ -1,6 +1,6 @@
 # Implement RegisterPage UI
 
-1. Create `src/components/Register.vue`
+1. Create `src/components/RegisterForm.vue`
 
    ```vue
    <template>
