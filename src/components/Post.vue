@@ -4,7 +4,7 @@
     <PostImage :post="post" />
     <PostActions :post="post" @like="likePost" @comment="startComment" @share="sharePost" />
     <PostStats :post="post" />
-    <PostComments :post="post" />
+    <PostComments :post="post" :comments="comments" />
     <PostDate :post="post" />
     <PostNewCommentForm :post="post" />
   </article>
@@ -33,6 +33,10 @@ export default {
   props: {
     post: {
       type: Object,
+      required: true,
+    },
+    comments: {
+      type: Array,
       required: true,
     },
   },

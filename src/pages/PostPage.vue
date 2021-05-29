@@ -1,6 +1,6 @@
 <template>
   <div class="PostPage">
-    <Post v-if="post" :post="post" />
+    <Post v-if="post" :post="post" :comments="comments" />
   </div>
 </template>
 

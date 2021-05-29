@@ -19,3 +19,24 @@ exports.createUserProfile = functions.auth.user().onCreate((user) => {
     followingCount: 0,
   });
 });
+
+exports.createComment = functions.https.onCall((data, context) => {
+  return db.runTransaction(async (t) => {
+    const postRef = db.doc(`posts/${data.postId}`);
+    const commentRef = postRef.collection('comments').doc();
+    const comment = {
+      body: data.body,
+      datePosted: new Date(),
+      author: {
+        id: context.auth.uid,
+        displayName: context.auth.token.name,
+      },
+    };
+    const post = await t.get(postRef);
+    t.set(commentRef, comment);
+    t.update(postRef, {
+      commentsCount: post.data().commentsCount + 1,
+      latestComments: post.data().latestComments.concat(comment).slice(-2),
+    });
+  });
+});

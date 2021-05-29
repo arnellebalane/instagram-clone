@@ -11,7 +11,7 @@
       View all {{ post.commentsCount }} comments
     </RouterLink>
 
-    <p v-for="comment in post.latestComments" :key="comment.id">
+    <p v-for="comment in comments" :key="comment.id">
       <RouterLink class="AuthorName" :to="{ name: 'profile', params: { id: comment.author.id } }">
         {{ comment.author.displayName }}
       </RouterLink>
@@ -27,11 +27,15 @@ export default {
       type: Object,
       required: true,
     },
+    comments: {
+      type: Array,
+      required: true,
+    },
   },
 
   computed: {
     hasMoreComments() {
-      return this.post.commentsCount > this.post.latestComments.length;
+      return this.post.commentsCount > this.comments.length;
     },
   },
 };
