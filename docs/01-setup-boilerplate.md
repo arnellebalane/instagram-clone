@@ -89,10 +89,12 @@
    console.log('Hello world');
    ```
 
----
-
-Switch to completed branch for this step:
+### Switch to completed branch for this step:
 
 ```bash
 git checkout 01-setup-boilerplate
 ```
+
+---
+
+- [**Proceed to next step**](02-setup-vue-project.md)
