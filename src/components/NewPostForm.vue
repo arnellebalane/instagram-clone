@@ -3,9 +3,16 @@
     <img class="Avatar" :src="currentUserPhotoURL" :alt="currentUser?.displayName" />
 
     <div class="Fields">
-      <input type="text" name="caption" placeholder="Add a caption..." v-model="caption" required />
-      <FilePicker ref="filePicker" @change="selectFile" />
-      <button :disabled="!isFormValid">Post</button>
+      <input
+        type="text"
+        name="caption"
+        placeholder="Add a caption..."
+        :disabled="isLoading"
+        v-model="caption"
+        required
+      />
+      <FilePicker ref="filePicker" :disabled="isLoading" @change="selectFile" />
+      <button :disabled="isLoading || !isFormValid">Post</button>
     </div>
 
     <img class="Preview" :src="filePreviewURL" alt="" />
@@ -28,6 +35,7 @@ export default {
     return {
       file: null,
       caption: '',
+      isLoading: false,
     };
   },
 
@@ -60,9 +68,14 @@ export default {
     },
 
     async submitForm() {
+      this.isLoading = true;
+      this.$store.commit('clearError');
+
       const [successfulUploadPhoto, photoRef] = await this.uploadPhoto(this.file);
       if (!successfulUploadPhoto) {
         console.error(photoRef);
+        this.$store.commit('setError', 'Failed to upload photo. Please try again.');
+        this.isLoading = false;
         return;
       }
 
@@ -74,10 +87,13 @@ export default {
       if (!successfulCreatePost) {
         console.error(postRef);
         await this.deletePhoto(photoRef);
+        this.$store.commit('setError', 'Failed to save post. Please try again.');
+        this.isLoading = false;
         return;
       }
 
       this.clearForm();
+      this.isLoading = false;
     },
 
     async uploadPhoto(file) {
