@@ -206,7 +206,7 @@
 
    ```vue
    <template>
-     <div class="LoginPage">
+     <div class="AuthPage">
        <AuthCard>
          <img src="@assets/images/logo.png" alt="Instagram logo" />
 
