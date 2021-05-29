@@ -23,13 +23,18 @@ export default {
   },
 
   mounted() {
-    db.collection('posts')
+    this.unsubscribePosts = db
+      .collection('posts')
       .orderBy('datePosted', 'desc')
       .onSnapshot((snapshot) => {
         this.posts = snapshot.docs
           .filter((doc) => !doc.metadata.hasPendingWrites)
           .map((doc) => ({ ...doc.data(), id: doc.id }));
       });
+  },
+
+  unmounted() {
+    this.unsubscribePosts();
   },
 };
 </script>
