@@ -122,7 +122,7 @@
      +     filled: Boolean,
      +   },
      + };
-     </script>
+     + </script>
      ```
 
    - Add `filled` class if `filled` prop is `true`
