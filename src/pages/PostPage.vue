@@ -1,10 +1,11 @@
 <template>
   <div class="PostPage">
-    <Post v-if="post" :post="post" :comments="comments" />
+    <Post v-if="post" :post="post" :comments="comments" :liked="isLikedPost" />
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import { db } from '@lib/firebase';
 import Post from '@components/Post.vue';
 
@@ -18,6 +19,14 @@ export default {
       post: null,
       comments: [],
     };
+  },
+
+  computed: {
+    ...mapState(['currentUserLikes']),
+
+    isLikedPost() {
+      return this.post?.id in this.currentUserLikes;
+    },
   },
 
   mounted() {

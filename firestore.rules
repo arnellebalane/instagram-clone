@@ -35,6 +35,10 @@ service cloud.firestore {
     match /users/{user} {
       allow read: if request.auth != null;
       allow update: if validateUpdateUserRequest(user);
+
+      match /likes/{like} {
+        allow read;
+      }
     }
 
     match /{document=**} {

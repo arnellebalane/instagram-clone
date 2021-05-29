@@ -40,3 +40,27 @@ exports.createComment = functions.https.onCall((data, context) => {
     });
   });
 });
+
+exports.likePost = functions.https.onCall((data, context) => {
+  return db.runTransaction(async (t) => {
+    const likeRef = db.doc(`users/${context.auth.uid}/likes/${data.postId}`);
+    const postRef = db.doc(`posts/${data.postId}`);
+    const post = await t.get(postRef);
+    t.set(likeRef, {});
+    t.update(postRef, {
+      likesCount: post.data().likesCount + 1,
+    });
+  });
+});
+
+exports.unlikePost = functions.https.onCall((data, context) => {
+  return db.runTransaction(async (t) => {
+    const likeRef = db.doc(`users/${context.auth.uid}/likes/${data.postId}`);
+    const postRef = db.doc(`posts/${data.postId}`);
+    const post = await t.get(postRef);
+    t.delete(likeRef);
+    t.update(postRef, {
+      likesCount: post.data().likesCount - 1,
+    });
+  });
+});

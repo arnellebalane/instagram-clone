@@ -2,7 +2,14 @@
   <article>
     <PostHeader :post="post" />
     <PostImage :post="post" />
-    <PostActions :post="post" @like="likePost" @comment="startComment" @share="sharePost" />
+    <PostActions
+      :post="post"
+      :liked="liked"
+      :disabled="isLoading"
+      @like="likePost"
+      @comment="startComment"
+      @share="sharePost"
+    />
     <PostStats :post="post" />
     <PostComments :post="post" :comments="comments" />
     <PostDate :post="post" />
@@ -11,6 +18,7 @@
 </template>
 
 <script>
+import { functions } from '@lib/firebase';
 import PostHeader from '@components/PostHeader.vue';
 import PostImage from '@components/PostImage.vue';
 import PostActions from '@components/PostActions.vue';
@@ -39,11 +47,30 @@ export default {
       type: Array,
       required: true,
     },
+    liked: Boolean,
+  },
+
+  data() {
+    return {
+      isLoading: false,
+    };
   },
 
   methods: {
-    likePost() {
-      console.log('like');
+    async likePost() {
+      this.isLoading = true;
+      this.$store.commit('clearError');
+
+      try {
+        const functionName = this.liked ? 'unlikePost' : 'likePost';
+        await functions.httpsCallable(functionName)({
+          postId: this.post.id,
+        });
+      } catch (error) {
+        console.error(error);
+        this.$store.setError('Failed to like the post. Please try again.');
+      }
+      this.isLoading = false;
     },
 
     startComment() {

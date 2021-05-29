@@ -1,11 +1,18 @@
 <template>
   <div v-if="hasPosts">
-    <Post v-for="post in posts" :key="post.id" :post="post" :comments="post.latestComments" />
+    <Post
+      v-for="post in posts"
+      :key="post.id"
+      :post="post"
+      :comments="post.latestComments"
+      :liked="isLikedPost(post)"
+    />
   </div>
   <p v-else>No posts available</p>
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import Post from '@components/Post.vue';
 
 export default {
@@ -21,8 +28,16 @@ export default {
   },
 
   computed: {
+    ...mapState(['currentUserLikes']),
+
     hasPosts() {
       return this.posts.length > 0;
+    },
+  },
+
+  methods: {
+    isLikedPost(post) {
+      return post.id in this.currentUserLikes;
     },
   },
 };
