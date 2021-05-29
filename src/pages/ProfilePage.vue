@@ -1,12 +1,15 @@
 <template>
   <div class="ProfilePage">
-    <ProfileHeader :user="user" />
-    <ProfileStats :user="user" />
+    <template v-if="user">
+      <ProfileHeader :user="user" />
+      <ProfileStats :user="user" />
+    </template>
     <ImageGrid :posts="posts" />
   </div>
 </template>
 
 <script>
+import { db } from '@lib/firebase';
 import ProfileHeader from '@components/ProfileHeader.vue';
 import ProfileStats from '@components/ProfileStats.vue';
 import ImageGrid from '@components/ImageGrid.vue';
@@ -20,40 +23,34 @@ export default {
 
   data() {
     return {
-      user: {
-        id: 'abc123',
-        displayName: 'Arnelle Balane',
-        photoURL: 'https://lh3.googleusercontent.com/a-/AOh14GgvGHJODi4nZbu_nj5UCVirg3aR0jpzkHgJvAr2og=s96-c',
-        postsCount: 10,
-        followersCount: 100,
-        followingCount: 20,
-        description: 'Software Developer, Newlogic',
-      },
-      posts: new Array(12).fill(0).map((i) => ({
-        id: `abc123${i}`,
-        photoURL:
-          'https://images.unsplash.com/photo-1621716362967-fd1c5281eef9?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500',
-        caption: 'This is a cool photo',
-        likesCount: 10,
-        datePosted: new Date('2021-05-01 03:14:00'),
-        latestComments: [
-          {
-            id: 'abcde12345',
-            body: 'this looks so cool!',
-            datePosted: new Date('2021-05-02 05:12:21'),
-            author: {
-              id: 'abcdef123456',
-              name: 'Random User',
-            },
-          },
-        ],
-        author: {
-          id: 'abcd1234',
-          name: 'Arnelle Balane',
-          photoURL: 'https://lh3.googleusercontent.com/a-/AOh14GgvGHJODi4nZbu_nj5UCVirg3aR0jpzkHgJvAr2og=s96-c',
-        },
-      })),
+      user: null,
+      posts: [],
     };
+  },
+
+  mounted() {
+    const userId = this.$route.params.id;
+
+    this.unsubscribeUser = db.doc(`users/${userId}`).onSnapshot((doc) => {
+      if (doc.exists) {
+        this.user = { ...doc.data(), id: doc.id };
+      }
+    });
+
+    this.unsubscribePosts = db
+      .collection('posts')
+      .where('author.id', '==', userId)
+      .orderBy('datePosted', 'desc')
+      .onSnapshot((snapshot) => {
+        this.posts = snapshot.docs
+          .filter((doc) => !doc.metadata.hasPendingWrites)
+          .map((doc) => ({ ...doc.data(), id: doc.id }));
+      });
+  },
+
+  unmounted() {
+    this.unsubscribeUser();
+    this.unsubscribePosts();
   },
 };
 </script>
